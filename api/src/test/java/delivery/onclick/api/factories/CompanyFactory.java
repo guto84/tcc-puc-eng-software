@@ -12,8 +12,10 @@ public class CompanyFactory {
     public static List<Company> createListCompanies() {
         List<Company> list = new ArrayList<>();
         Company company1 = createCompany();
-        Company company2 = new Company(UUID.fromString("e6756246-8bad-4852-9ad7-6350a0152fbf"), "companyTwo", "company-two");
-        Company company3 = new Company(UUID.fromString("ad7a78ec-0fdb-472b-a1ca-ca58374768d7"), "companyThree", "company-three");
+        Company company2 = new Company(UUID.fromString("e6756246-8bad-4852-9ad7-6350a0152fbf"), "companyTwo",
+                "company-two");
+        Company company3 = new Company(UUID.fromString("ad7a78ec-0fdb-472b-a1ca-ca58374768d7"), "companyThree",
+                "company-three");
         list.add(company1);
         list.add(company2);
         list.add(company3);
@@ -26,5 +28,9 @@ public class CompanyFactory {
 
     public static CompanyDTO createCompanyDTO() {
         return new CompanyDTO(createCompany());
+    }
+
+    public static List<CompanyDTO> createListCompaniesDTO() {
+        return createListCompanies().stream().map(x -> new CompanyDTO(x)).toList();
     }
 }
