@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import delivery.onclick.api.dtos.CompanyDTO;
 import delivery.onclick.api.entities.Company;
 
 public class CompanyFactory {
@@ -21,5 +22,9 @@ public class CompanyFactory {
 
     public static Company createCompany() {
         return new Company(UUID.fromString("b239870c-5335-4421-8ecb-8df934645b45"), "companyOne", "company-one");
+    }
+
+    public static CompanyDTO createCompanyDTO() {
+        return new CompanyDTO(createCompany());
     }
 }
