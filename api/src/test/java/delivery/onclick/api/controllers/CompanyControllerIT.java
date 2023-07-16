@@ -92,4 +92,51 @@ public class CompanyControllerIT {
 
         result.andExpect(MockMvcResultMatchers.status().isNotFound());
     }
+
+    @Test
+    public void updateShouldReturnCompanyDTOWhenIdExists() throws Exception {
+        CompanyDTO companyDTO = CompanyFactory.createCompanyDTO();
+        String jsonBody = objectMapper.writeValueAsString(companyDTO);
+
+        ResultActions result = mockMvc
+                .perform(MockMvcRequestBuilders.put("/companies/{id}", existingId)
+                        .content(jsonBody)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON));
+
+        result.andExpect(MockMvcResultMatchers.status().isOk());
+        result.andExpect(MockMvcResultMatchers.jsonPath("$.id").exists());
+        result.andExpect(MockMvcResultMatchers.jsonPath("$.name").value(companyDTO.getName()));
+        result.andExpect(MockMvcResultMatchers.jsonPath("$.url").value(companyDTO.getUrl()));
+    }
+
+    @Test
+    public void updateShouldReturnNotFoundWhenIdDoesNotExists() throws Exception {
+        CompanyDTO companyDTO = CompanyFactory.createCompanyDTO();
+        String jsonBody = objectMapper.writeValueAsString(companyDTO);
+
+        ResultActions result = mockMvc
+                .perform(MockMvcRequestBuilders.put("/companies/{id}", nonExistingId)
+                        .content(jsonBody)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON));
+
+        result.andExpect(MockMvcResultMatchers.status().isNotFound());
+    }
+
+    @Test
+	public void deleteShouldReturnNoContentWhenIndependentId() throws Exception {				
+		ResultActions result =
+				mockMvc.perform(MockMvcRequestBuilders.delete("/companies/{id}", existingId));
+		
+		result.andExpect(MockMvcResultMatchers.status().isNoContent());
+	}
+
+	@Test
+	public void deleteShouldReturnNotFoundWhenNonExistingId() throws Exception {		
+		ResultActions result =
+				mockMvc.perform(MockMvcRequestBuilders.delete("/companies/{id}", nonExistingId));
+
+		result.andExpect(MockMvcResultMatchers.status().isNotFound());
+	}
 }

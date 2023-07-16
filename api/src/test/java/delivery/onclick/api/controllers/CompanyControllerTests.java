@@ -1,6 +1,9 @@
 package delivery.onclick.api.controllers;
 
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.when;
 
 import java.util.List;
@@ -52,6 +55,10 @@ public class CompanyControllerTests {
         when(service.findAll()).thenReturn(companiesDTO);
         when(service.findById(existingId)).thenReturn(companyDTO);
         when(service.findById(nonExistingId)).thenThrow(ResourceNotFoundException.class);
+        when(service.update(eq(existingId), any())).thenReturn(companyDTO);
+        when(service.update(eq(nonExistingId), any())).thenThrow(ResourceNotFoundException.class);
+        doNothing().when(service).delete(existingId);
+        doThrow(ResourceNotFoundException.class).when(service).delete(nonExistingId);
     }
 
     @Test
@@ -96,6 +103,51 @@ public class CompanyControllerTests {
     public void findByIdShouldReturnNotFoundWhenIdDoesNotExists() throws Exception {
         ResultActions result = mockMvc
                 .perform(MockMvcRequestBuilders.get("/companies/{id}", nonExistingId)
+                        .accept(MediaType.APPLICATION_JSON));
+
+        result.andExpect(MockMvcResultMatchers.status().isNotFound());
+    }
+
+    @Test
+    public void updateShouldReturnCompanyDTOWhenIdExists() throws Exception {
+        String jsonBody = objectMapper.writeValueAsString(companyDTO);
+        ResultActions result = mockMvc
+                .perform(MockMvcRequestBuilders.put("/companies/{id}", existingId)
+                        .content(jsonBody)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON));
+
+        result.andExpect(MockMvcResultMatchers.status().isOk());
+        result.andExpect(MockMvcResultMatchers.jsonPath("$.id").exists());
+        result.andExpect(MockMvcResultMatchers.jsonPath("$.name").value(companyDTO.getName()));
+        result.andExpect(MockMvcResultMatchers.jsonPath("$.url").value(companyDTO.getUrl()));
+    }
+
+    @Test
+    public void updateShouldReturnNotFoundWhenIdDoesNotExists() throws Exception {
+        String jsonBody = objectMapper.writeValueAsString(companyDTO);
+        ResultActions result = mockMvc
+                .perform(MockMvcRequestBuilders.put("/companies/{id}", nonExistingId)
+                        .content(jsonBody)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON));
+
+        result.andExpect(MockMvcResultMatchers.status().isNotFound());
+    }
+
+    @Test
+    public void deleteShouldReturnNoContentWhenIdExists() throws Exception {
+        ResultActions result = mockMvc
+                .perform(MockMvcRequestBuilders.delete("/companies/{id}", existingId)
+                        .accept(MediaType.APPLICATION_JSON));
+
+        result.andExpect(MockMvcResultMatchers.status().isNoContent());
+    }
+
+    @Test
+    public void deleteShouldReturnNotFoundWhenIdDoesNotExists() throws Exception {
+                ResultActions result = mockMvc
+                .perform(MockMvcRequestBuilders.delete("/companies/{id}", nonExistingId)
                         .accept(MediaType.APPLICATION_JSON));
 
         result.andExpect(MockMvcResultMatchers.status().isNotFound());

@@ -12,6 +12,7 @@ import org.mockito.ArgumentMatchers;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import delivery.onclick.api.dtos.CompanyDTO;
@@ -20,6 +21,7 @@ import delivery.onclick.api.factories.CompanyFactory;
 import delivery.onclick.api.repositories.CompanyRepository;
 import delivery.onclick.api.servicesImpl.CompanyServiceImpl;
 import delivery.onclick.api.servicesImpl.exceptions.ResourceNotFoundException;
+import jakarta.persistence.EntityNotFoundException;
 
 @ExtendWith(SpringExtension.class)
 public class CompanyServiceTests {
@@ -32,6 +34,7 @@ public class CompanyServiceTests {
 
     private UUID existingId;
     private UUID nonExistingId;
+    private UUID dependentId;
     private Company company;
     private CompanyDTO companyDTO;
     private List<Company> companies;
@@ -40,6 +43,7 @@ public class CompanyServiceTests {
     void setUp() throws Exception {
         existingId = UUID.fromString("b239870c-5335-4421-8ecb-8df934645b45");
         nonExistingId = UUID.fromString("dbccdfc4-181d-48fd-80bc-35f954f8689f");
+        // dependentId = UUID.fromString("");
 
         company = CompanyFactory.createCompany();
         companyDTO = CompanyFactory.createCompanyDTO();
@@ -48,6 +52,17 @@ public class CompanyServiceTests {
         Mockito.when(repository.save(ArgumentMatchers.any())).thenReturn(company);
         Mockito.when(repository.findAll()).thenReturn(companies);
         Mockito.when(repository.findById(existingId)).thenReturn(Optional.of(company));
+
+        Mockito.when(repository.getReferenceById(existingId)).thenReturn(company);
+        Mockito.when(repository.getReferenceById(nonExistingId)).thenThrow(EntityNotFoundException.class);
+
+        Mockito.doNothing().when(repository).deleteById(existingId);
+        Mockito.doThrow(ResourceNotFoundException.class).when(repository).deleteById(nonExistingId);
+        Mockito.doThrow(DataIntegrityViolationException.class).when(repository).deleteById(dependentId);
+
+        Mockito.when(repository.existsById(existingId)).thenReturn(true);
+        Mockito.when(repository.existsById(nonExistingId)).thenReturn(false);
+        Mockito.when(repository.existsById(dependentId)).thenReturn(true);
     }
 
     @Test
@@ -78,6 +93,36 @@ public class CompanyServiceTests {
     public void findByIdShouldThrowResourceNotFoundExceptionWhenIdDoesNotExists() {
         Assertions.assertThrows(ResourceNotFoundException.class, () -> {
             service.findById(nonExistingId);
+        });
+    }
+
+    @Test
+    public void updateShouldReturnCompanyDTOWhenIdExists() {
+        CompanyDTO result = service.update(existingId, companyDTO);
+
+        Assertions.assertNotNull(result);
+    }
+
+    @Test
+    public void updateShouldThrowResourceNotFoundExceptionWhenIdDoesNotExists() {
+        Assertions.assertThrows(ResourceNotFoundException.class, () -> {
+            service.update(nonExistingId, companyDTO);
+        });
+    }
+
+    @Test
+    public void deleteShouldDoNothingWhenIdExists() {
+        Assertions.assertDoesNotThrow(() -> {
+            service.delete(existingId);
+        });
+
+        Mockito.verify(repository, Mockito.times(1)).deleteById(existingId);
+    }
+
+    @Test
+    public void deleteShouldThrowResourceNotFoundExceptionWhenIdDoesNotExist() {
+        Assertions.assertThrows(ResourceNotFoundException.class, () -> {
+            service.delete(UUID.randomUUID());
         });
     }
 }

@@ -11,7 +11,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
 import delivery.onclick.api.dtos.CompanyDTO;
+import delivery.onclick.api.entities.Company;
 import delivery.onclick.api.factories.CompanyFactory;
+import delivery.onclick.api.repositories.CompanyRepository;
 import delivery.onclick.api.servicesImpl.CompanyServiceImpl;
 import delivery.onclick.api.servicesImpl.exceptions.ResourceNotFoundException;
 
@@ -21,6 +23,9 @@ public class CompanyServiceIT {
 
     @Autowired
     private CompanyServiceImpl service;
+
+    @Autowired
+    private CompanyRepository repository;
 
     private UUID existingId;
     private UUID nonExistingId;
@@ -56,10 +61,45 @@ public class CompanyServiceIT {
         Assertions.assertEquals(dto.getName(), "companyOne");
     }
 
-        @Test
+    @Test
     public void findByIdShouldThrowResourceNotFoundExceptionWhenIdDoesNotExists() {
         Assertions.assertThrows(ResourceNotFoundException.class, () -> {
             service.findById(nonExistingId);
+        });
+    }
+
+    @Test
+    public void updateShouldReturnCompanyDTOWhenIdExists() {
+        Company entity = CompanyFactory.createCompany();
+        entity.setName("Company Edited");
+        CompanyDTO dto = new CompanyDTO(entity);
+
+        CompanyDTO result = service.update(existingId, dto);
+
+        Assertions.assertNotNull(result.getId());
+        Assertions.assertEquals(dto.getName(), result.getName());
+        Assertions.assertEquals(dto.getUrl(), result.getUrl());
+    }
+
+    @Test
+    public void updateShouldThrowResourceNotFoundExceptionWhenIdDoesNotExists() {
+        CompanyDTO dto = CompanyFactory.createCompanyDTO();
+        Assertions.assertThrows(ResourceNotFoundException.class, () -> {
+            service.update(nonExistingId, dto);
+        });
+    }
+
+    @Test
+    public void deleteShouldDeleteResourceWhenIdExists() {
+        service.delete(existingId);
+
+        Assertions.assertEquals(2, repository.count());
+    }
+
+    @Test
+    public void deleteShouldThrowResourceNotFoundExceptionWhenIdDoesNotExists() {
+        Assertions.assertThrows(ResourceNotFoundException.class, () -> {
+            service.delete(nonExistingId);
         });
     }
 }
