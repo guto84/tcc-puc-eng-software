@@ -14,11 +14,12 @@ import delivery.onclick.api.entities.Company;
 import delivery.onclick.api.repositories.CompanyRepository;
 import delivery.onclick.api.services.CompanyService;
 import delivery.onclick.api.servicesImpl.exceptions.ResourceNotFoundException;
+import jakarta.persistence.EntityNotFoundException;
 
 @Service
 public class CompanyServiceImpl implements CompanyService {
-    
-        @Autowired
+
+    @Autowired
     private CompanyRepository repository;
 
     @Transactional
@@ -42,4 +43,27 @@ public class CompanyServiceImpl implements CompanyService {
         Company company = entity.orElseThrow(() -> new ResourceNotFoundException(id));
         return new CompanyDTO(company);
     }
+
+    @Transactional
+    public CompanyDTO update(UUID id, CompanyDTO dto) {
+        try {
+            Company entity = repository.getReferenceById(id);
+            entity.setName(dto.getName());
+            entity.setUrl(dto.getUrl());
+            entity = repository.save(entity);
+            return new CompanyDTO(entity);
+        } catch (EntityNotFoundException e) {
+            throw new ResourceNotFoundException(id);
+        }
+    }
+
+    @Transactional
+    public void delete(UUID id) {
+        Optional<Company> entity = repository.findById(id);
+		entity.orElseThrow(() -> new ResourceNotFoundException(id));
+		repository.deleteById(id);
+    }
 }
+
+
+

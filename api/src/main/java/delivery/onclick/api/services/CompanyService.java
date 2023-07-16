@@ -12,4 +12,8 @@ public interface CompanyService {
     List<CompanyDTO> findAll();
 
     CompanyDTO findById(UUID id);
+
+    CompanyDTO update(UUID id, CompanyDTO dto);
+
+    void delete(UUID id);
 }
