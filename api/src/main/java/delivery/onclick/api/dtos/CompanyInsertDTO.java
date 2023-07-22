@@ -4,22 +4,16 @@ import java.util.UUID;
 
 import delivery.onclick.api.entities.Company;
 
-public class CompanyDTO {
+public class CompanyInsertDTO {
 
     private UUID id;
     private String name;
     private String url;
 
-    public CompanyDTO() {
+    public CompanyInsertDTO() {
     }
 
-    public CompanyDTO(UUID id, String name, String url) {
-        this.id = id;
-        this.name = name;
-        this.url = url;
-    }
-
-    public CompanyDTO(Company entity) {
+    public CompanyInsertDTO(Company entity) {
         id = entity.getId();
         name = entity.getName();
         url = entity.getUrl();

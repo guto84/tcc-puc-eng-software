@@ -13,7 +13,7 @@ public class UserInsertDTO {
     private String name;
     private String email;
     private String password;
-    private CompanyDTO company;
+    private CompanyOutputDTO company;
     private List<RoleDTO> roles = new ArrayList<>();
 
     public UserInsertDTO() {
@@ -24,7 +24,7 @@ public class UserInsertDTO {
         name = entity.getName();
         email = entity.getEmail();
         password = entity.getPassword();
-        company = new CompanyDTO(entity.getCompany());
+        company = new CompanyOutputDTO(entity.getCompany());
         for (Role role : entity.getRoles()) {
             roles.add(new RoleDTO(role));
         }
@@ -50,7 +50,7 @@ public class UserInsertDTO {
         return roles;
     }
 
-    public CompanyDTO getCompany() {
+    public CompanyOutputDTO getCompany() {
         return company;
     }
 

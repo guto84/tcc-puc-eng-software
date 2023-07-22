@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import delivery.onclick.api.dtos.UserInsertDTO;
-import delivery.onclick.api.dtos.UserOutputDTO;
+import delivery.onclick.api.dtos.UserRoleOutputDTO;
 import delivery.onclick.api.dtos.UserUpdateDTO;
 import delivery.onclick.api.services.UserService;
 
@@ -34,7 +34,7 @@ public class UserController {
 
     @GetMapping(value = "/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public UserOutputDTO findById(@PathVariable UUID id) {
+    public UserRoleOutputDTO findById(@PathVariable UUID id) {
         return service.findById(id);
     }
 

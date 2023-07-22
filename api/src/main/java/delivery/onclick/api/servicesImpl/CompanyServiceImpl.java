@@ -9,7 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import delivery.onclick.api.dtos.CompanyDTO;
+import delivery.onclick.api.dtos.CompanyInsertDTO;
+import delivery.onclick.api.dtos.CompanyOutputDTO;
+import delivery.onclick.api.dtos.CompanyUpdateDTO;
+import delivery.onclick.api.dtos.CompanyUsersOutputDTO;
 import delivery.onclick.api.entities.Company;
 import delivery.onclick.api.repositories.CompanyRepository;
 import delivery.onclick.api.services.CompanyService;
@@ -23,35 +26,35 @@ public class CompanyServiceImpl implements CompanyService {
     private CompanyRepository repository;
 
     @Transactional
-    public CompanyDTO insert(CompanyDTO dto) {
+    public CompanyOutputDTO insert(CompanyInsertDTO dto) {
         Company entity = new Company();
         entity.setName(dto.getName());
         entity.setUrl(dto.getUrl());
         entity = repository.save(entity);
-        return new CompanyDTO(entity);
+        return new CompanyOutputDTO(entity);
     }
 
     @Transactional(readOnly = true)
-    public List<CompanyDTO> findAll() {
+    public List<CompanyOutputDTO> findAll() {
         List<Company> list = repository.findAll();
-        return list.stream().map(x -> new CompanyDTO(x)).collect(Collectors.toList());
+        return list.stream().map(x -> new CompanyOutputDTO(x)).collect(Collectors.toList());
     }
 
     @Transactional(readOnly = true)
-    public CompanyDTO findById(UUID id) {
+    public CompanyOutputDTO findById(UUID id) {
         Optional<Company> entity = repository.findById(id);
         Company company = entity.orElseThrow(() -> new ResourceNotFoundException());
-        return new CompanyDTO(company);
+        return new CompanyOutputDTO(company);
     }
 
     @Transactional
-    public CompanyDTO update(UUID id, CompanyDTO dto) {
+    public CompanyOutputDTO update(UUID id, CompanyUpdateDTO dto) {
         try {
             Company entity = repository.getReferenceById(id);
             entity.setName(dto.getName());
             entity.setUrl(dto.getUrl());
             entity = repository.save(entity);
-            return new CompanyDTO(entity);
+            return new CompanyOutputDTO(entity);
         } catch (EntityNotFoundException e) {
             throw new ResourceNotFoundException();
         }
@@ -60,10 +63,14 @@ public class CompanyServiceImpl implements CompanyService {
     @Transactional
     public void delete(UUID id) {
         Optional<Company> entity = repository.findById(id);
-		entity.orElseThrow(() -> new ResourceNotFoundException());
-		repository.deleteById(id);
+        entity.orElseThrow(() -> new ResourceNotFoundException());
+        repository.deleteById(id);
+    }
+
+    @Transactional(readOnly = true)
+    public CompanyUsersOutputDTO findByIdUsers(UUID id) {
+        Optional<Company> entity = repository.findByIdUsers(id);
+        Company company = entity.orElseThrow(() -> new ResourceNotFoundException());
+        return new CompanyUsersOutputDTO(company);
     }
 }
-
-
-

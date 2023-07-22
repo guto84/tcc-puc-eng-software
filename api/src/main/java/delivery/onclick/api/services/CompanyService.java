@@ -3,17 +3,22 @@ package delivery.onclick.api.services;
 import java.util.List;
 import java.util.UUID;
 
-import delivery.onclick.api.dtos.CompanyDTO;
+import delivery.onclick.api.dtos.CompanyInsertDTO;
+import delivery.onclick.api.dtos.CompanyOutputDTO;
+import delivery.onclick.api.dtos.CompanyUpdateDTO;
+import delivery.onclick.api.dtos.CompanyUsersOutputDTO;
 
 public interface CompanyService {
 
-    CompanyDTO insert(CompanyDTO dto);
+    CompanyOutputDTO insert(CompanyInsertDTO dto);
 
-    List<CompanyDTO> findAll();
+    List<CompanyOutputDTO> findAll();
 
-    CompanyDTO findById(UUID id);
+    CompanyOutputDTO findById(UUID id);
 
-    CompanyDTO update(UUID id, CompanyDTO dto);
+    CompanyOutputDTO update(UUID id, CompanyUpdateDTO dto);
 
     void delete(UUID id);
+
+    CompanyUsersOutputDTO findByIdUsers(UUID id);
 }

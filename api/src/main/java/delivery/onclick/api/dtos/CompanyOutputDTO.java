@@ -2,21 +2,21 @@ package delivery.onclick.api.dtos;
 
 import java.util.UUID;
 
-import delivery.onclick.api.entities.User;
+import delivery.onclick.api.entities.Company;
 
-public class UserOutputDTO {
+public class CompanyOutputDTO {
 
     private UUID id;
     private String name;
-    private String email;
+    private String url;
 
-    public UserOutputDTO() {
+    public CompanyOutputDTO() {
     }
 
-    public UserOutputDTO(User entity) {
+    public CompanyOutputDTO(Company entity) {
         id = entity.getId();
         name = entity.getName();
-        email = entity.getEmail();
+        url = entity.getUrl();
     }
 
     public UUID getId() {
@@ -27,7 +27,8 @@ public class UserOutputDTO {
         return name;
     }
 
-    public String getEmail() {
-        return email;
+    public String getUrl() {
+        return url;
     }
+
 }

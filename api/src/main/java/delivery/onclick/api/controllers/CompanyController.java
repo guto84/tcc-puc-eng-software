@@ -15,7 +15,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import delivery.onclick.api.dtos.CompanyDTO;
+import delivery.onclick.api.dtos.CompanyInsertDTO;
+import delivery.onclick.api.dtos.CompanyOutputDTO;
+import delivery.onclick.api.dtos.CompanyUpdateDTO;
+import delivery.onclick.api.dtos.CompanyUsersOutputDTO;
 import delivery.onclick.api.services.CompanyService;
 
 @RestController
@@ -27,25 +30,25 @@ public class CompanyController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public CompanyDTO insert(@RequestBody CompanyDTO dto) {
+    public CompanyOutputDTO insert(@RequestBody CompanyInsertDTO dto) {
         return service.insert(dto);
     }
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public List<CompanyDTO> findAll() {
+    public List<CompanyOutputDTO> findAll() {
         return service.findAll();
     }
 
     @GetMapping(value = "/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public CompanyDTO findById(@PathVariable UUID id) {
+    public CompanyOutputDTO findById(@PathVariable UUID id) {
         return service.findById(id);
     }
 
     @PutMapping(value = "/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public CompanyDTO update(@PathVariable UUID id, @RequestBody CompanyDTO input) {
+    public CompanyOutputDTO update(@PathVariable UUID id, @RequestBody CompanyUpdateDTO input) {
         return service.update(id, input);
     }
 
@@ -53,5 +56,11 @@ public class CompanyController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable UUID id) {
         service.delete(id);
+    }
+
+    @GetMapping(value = "/{id}/users")
+    @ResponseStatus(HttpStatus.OK)
+    public CompanyUsersOutputDTO findByIdUsers(@PathVariable UUID id) {
+        return service.findByIdUsers(id);
     }
 }

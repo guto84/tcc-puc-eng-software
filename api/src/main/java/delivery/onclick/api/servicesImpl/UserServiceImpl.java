@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import delivery.onclick.api.dtos.RoleDTO;
 import delivery.onclick.api.dtos.UserInsertDTO;
-import delivery.onclick.api.dtos.UserOutputDTO;
+import delivery.onclick.api.dtos.UserRoleOutputDTO;
 import delivery.onclick.api.dtos.UserUpdateDTO;
 import delivery.onclick.api.entities.Company;
 import delivery.onclick.api.entities.Role;
@@ -58,7 +58,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Transactional(readOnly = true)
-    public UserOutputDTO findById(UUID id) {
+    public UserRoleOutputDTO findById(UUID id) {
         try {
             List<UserDetailsProjection> result = repository.searchUserAndRolesById(id);
             User entity = new User();
@@ -70,7 +70,7 @@ public class UserServiceImpl implements UserService {
                 entity.addRole(new Role(ByteToUUID.convert(x.getRoleId()), x.getAuthority()));
             }
 
-            return new UserOutputDTO(entity);
+            return new UserRoleOutputDTO(entity);
         } catch (IndexOutOfBoundsException e) {
             throw new ResourceNotFoundException();
         }
