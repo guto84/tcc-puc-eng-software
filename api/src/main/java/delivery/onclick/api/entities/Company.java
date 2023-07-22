@@ -26,6 +26,9 @@ public class Company {
     @OneToMany(mappedBy = "company", cascade = CascadeType.REMOVE)
     private Set<User> users = new HashSet<>();
 
+    @OneToMany(mappedBy = "company", cascade = CascadeType.REMOVE)
+    private Set<Group> groups = new HashSet<>();
+
     public Company() {
     }
 
@@ -65,6 +68,14 @@ public class Company {
 
     public void setUsers(Set<User> users) {
         this.users = users;
+    }
+
+    public Set<Group> getGroups() {
+        return groups;
+    }
+
+    public void setGroups(Set<Group> groups) {
+        this.groups = groups;
     }
 
     @Override
