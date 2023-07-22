@@ -40,7 +40,7 @@ public class CompanyServiceImpl implements CompanyService {
     @Transactional(readOnly = true)
     public CompanyDTO findById(UUID id) {
         Optional<Company> entity = repository.findById(id);
-        Company company = entity.orElseThrow(() -> new ResourceNotFoundException(id));
+        Company company = entity.orElseThrow(() -> new ResourceNotFoundException());
         return new CompanyDTO(company);
     }
 
@@ -53,14 +53,14 @@ public class CompanyServiceImpl implements CompanyService {
             entity = repository.save(entity);
             return new CompanyDTO(entity);
         } catch (EntityNotFoundException e) {
-            throw new ResourceNotFoundException(id);
+            throw new ResourceNotFoundException();
         }
     }
 
     @Transactional
     public void delete(UUID id) {
         Optional<Company> entity = repository.findById(id);
-		entity.orElseThrow(() -> new ResourceNotFoundException(id));
+		entity.orElseThrow(() -> new ResourceNotFoundException());
 		repository.deleteById(id);
     }
 }
