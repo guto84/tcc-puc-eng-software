@@ -32,14 +32,14 @@ public class UserRepositoryTests {
 
     @Test
     public void saveShouldPersistUser() {
-        User entity = UserFactory.createUser();
+        User entity = UserFactory.user();
 
         entity = repository.save(entity);
 
         Assertions.assertNotNull(entity.getId());
         Assertions.assertEquals("user", entity.getName());
         Assertions.assertEquals("companyOne", entity.getCompany().getName());
-        Assertions.assertEquals(true, entity.getRoles().contains(RoleFactory.createListRoles().get(0)));
+        Assertions.assertEquals(true, entity.getRoles().contains(RoleFactory.listRoles().get(0)));
     }
 
     @Test

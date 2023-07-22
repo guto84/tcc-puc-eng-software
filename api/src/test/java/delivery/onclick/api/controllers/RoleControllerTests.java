@@ -32,7 +32,7 @@ public class RoleControllerTests {
 
     @BeforeEach
     void setUp() throws Exception {
-        rolesDTO = RoleFactory.createListRolesDTO();
+        rolesDTO = RoleFactory.listRolesDTO();
 
         when(service.findAll()).thenReturn(rolesDTO);
     }

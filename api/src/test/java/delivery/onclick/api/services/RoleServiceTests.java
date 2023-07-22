@@ -30,7 +30,7 @@ public class RoleServiceTests {
 
     @BeforeEach
     void setUp() throws Exception {
-        roles = RoleFactory.createListRoles();
+        roles = RoleFactory.listRoles();
 
         Mockito.when(repository.findAll()).thenReturn(roles);
     }

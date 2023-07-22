@@ -22,7 +22,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import delivery.onclick.api.dtos.CompanyDTO;
+import delivery.onclick.api.dtos.CompanyOutputDTO;
 import delivery.onclick.api.factories.CompanyFactory;
 import delivery.onclick.api.services.CompanyService;
 import delivery.onclick.api.servicesImpl.exceptions.ResourceNotFoundException;
@@ -41,15 +41,15 @@ public class CompanyControllerTests {
 
     private UUID existingId;
     private UUID nonExistingId;
-    private CompanyDTO companyDTO;
-    private List<CompanyDTO> companiesDTO;
+    private CompanyOutputDTO companyDTO;
+    private List<CompanyOutputDTO> companiesDTO;
 
     @BeforeEach
     void setUp() throws Exception {
         existingId = UUID.fromString("b239870c-5335-4421-8ecb-8df934645b45");
         nonExistingId = UUID.fromString("dbccdfc4-181d-48fd-80bc-35f954f8689f");
-        companyDTO = CompanyFactory.createCompanyDTO();
-        companiesDTO = CompanyFactory.createListCompaniesDTO();
+        companyDTO = CompanyFactory.companyDTO();
+        companiesDTO = CompanyFactory.listCompaniesDTO();
 
         when(service.insert(any())).thenReturn(companyDTO);
         when(service.findAll()).thenReturn(companiesDTO);

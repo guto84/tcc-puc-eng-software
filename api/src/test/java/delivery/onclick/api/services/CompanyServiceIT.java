@@ -10,7 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
-import delivery.onclick.api.dtos.CompanyDTO;
+import delivery.onclick.api.dtos.CompanyInsertDTO;
+import delivery.onclick.api.dtos.CompanyOutputDTO;
+import delivery.onclick.api.dtos.CompanyUpdateDTO;
 import delivery.onclick.api.entities.Company;
 import delivery.onclick.api.factories.CompanyFactory;
 import delivery.onclick.api.repositories.CompanyRepository;
@@ -38,8 +40,8 @@ public class CompanyServiceIT {
 
     @Test
     public void insertShouldReturnCompanyDTOWhenSuccessfullyRegistered() {
-        CompanyDTO dto = CompanyFactory.createCompanyDTO();
-        CompanyDTO result = service.insert(dto);
+        CompanyInsertDTO dto = CompanyFactory.companyInsertDTO();
+        CompanyOutputDTO result = service.insert(dto);
 
         Assertions.assertNotNull(result.getId());
         Assertions.assertEquals(dto.getName(), result.getName());
@@ -48,7 +50,7 @@ public class CompanyServiceIT {
 
     @Test
     public void findAllShouldReturnCompanyList() {
-        List<CompanyDTO> list = service.findAll();
+        List<CompanyOutputDTO> list = service.findAll();
 
         Assertions.assertFalse(list.isEmpty());
         Assertions.assertEquals(3, list.size());
@@ -56,7 +58,7 @@ public class CompanyServiceIT {
 
     @Test
     public void findByIdShouldReturnCompanyDTOWhenIdExists() {
-        CompanyDTO dto = service.findById(existingId);
+        CompanyOutputDTO dto = service.findById(existingId);
 
         Assertions.assertEquals(dto.getName(), "companyOne");
     }
@@ -70,11 +72,11 @@ public class CompanyServiceIT {
 
     @Test
     public void updateShouldReturnCompanyDTOWhenIdExists() {
-        Company entity = CompanyFactory.createCompany();
+        Company entity = CompanyFactory.company();
         entity.setName("Company Edited");
-        CompanyDTO dto = new CompanyDTO(entity);
+        CompanyUpdateDTO dto = new CompanyUpdateDTO(entity);
 
-        CompanyDTO result = service.update(existingId, dto);
+        CompanyOutputDTO result = service.update(existingId, dto);
 
         Assertions.assertNotNull(result.getId());
         Assertions.assertEquals(dto.getName(), result.getName());
@@ -83,7 +85,7 @@ public class CompanyServiceIT {
 
     @Test
     public void updateShouldThrowResourceNotFoundExceptionWhenIdDoesNotExists() {
-        CompanyDTO dto = CompanyFactory.createCompanyDTO();
+        CompanyUpdateDTO dto = CompanyFactory.companyUpdateDTO();
         Assertions.assertThrows(ResourceNotFoundException.class, () -> {
             service.update(nonExistingId, dto);
         });

@@ -9,7 +9,7 @@ import delivery.onclick.api.entities.Role;
 
 public class RoleFactory {
 
-    public static List<Role> createListRoles() {
+    public static List<Role> listRoles() {
         List<Role> list = new ArrayList<>();
         Role role1 = new Role(UUID.fromString("2f4e2361-1bef-4cda-b971-7909199ad324"), "ROLE_ADMIN");
         Role role2 = new Role(UUID.fromString("c6ccb498-b6b8-4ceb-a3bd-77c8adbd8010"), "ROLE_PROVIDER");
@@ -21,8 +21,8 @@ public class RoleFactory {
         return list;
     }
 
-    public static List<RoleDTO> createListRolesDTO() {
-        return createListRoles().stream().map(x -> new RoleDTO(x)).toList();
+    public static List<RoleDTO> listRolesDTO() {
+        return listRoles().stream().map(x -> new RoleDTO(x)).toList();
     }
 
 }

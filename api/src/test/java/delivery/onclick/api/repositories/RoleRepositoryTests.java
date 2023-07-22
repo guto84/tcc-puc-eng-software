@@ -17,7 +17,7 @@ public class RoleRepositoryTests {
 
     @Test
     public void findAllShouldReturnListRole() {
-        List<Role> mockList = RoleFactory.createListRoles();
+        List<Role> mockList = RoleFactory.listRoles();
 
         List<Role> list = repository.findAll();
 

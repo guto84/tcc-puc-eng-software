@@ -43,7 +43,7 @@ public class CompanyRepositoryTests {
 
     @Test
     public void findAllShouldReturnListCompany() {
-        List<Company> mockList = CompanyFactory.createListCompanies();
+        List<Company> mockList = CompanyFactory.listCompanies();
 
         List<Company> list = repository.findAll();
 

@@ -16,7 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import delivery.onclick.api.dtos.CompanyDTO;
+import delivery.onclick.api.dtos.CompanyOutputDTO;
 import delivery.onclick.api.factories.CompanyFactory;
 
 @SpringBootTest
@@ -41,7 +41,7 @@ public class CompanyControllerIT {
 
     @Test
     public void insertShouldReturnCompanyDTOWhenSuccessfullyRegistered() throws Exception {
-        CompanyDTO companyDTO = CompanyFactory.createCompanyDTO();
+        CompanyOutputDTO companyDTO = CompanyFactory.companyDTO();
         String jsonBody = objectMapper.writeValueAsString(companyDTO);
 
         ResultActions result = mockMvc.perform(MockMvcRequestBuilders
@@ -81,7 +81,7 @@ public class CompanyControllerIT {
 
     @Test
     public void findByIdShouldReturnNotFoundWhenIdDoesNotExists() throws Exception {
-        CompanyDTO companyDTO = CompanyFactory.createCompanyDTO();
+        CompanyOutputDTO companyDTO = CompanyFactory.companyDTO();
         String jsonBody = objectMapper.writeValueAsString(companyDTO);
 
         ResultActions result = mockMvc
@@ -95,7 +95,7 @@ public class CompanyControllerIT {
 
     @Test
     public void updateShouldReturnCompanyDTOWhenIdExists() throws Exception {
-        CompanyDTO companyDTO = CompanyFactory.createCompanyDTO();
+        CompanyOutputDTO companyDTO = CompanyFactory.companyDTO();
         String jsonBody = objectMapper.writeValueAsString(companyDTO);
 
         ResultActions result = mockMvc
@@ -112,7 +112,7 @@ public class CompanyControllerIT {
 
     @Test
     public void updateShouldReturnNotFoundWhenIdDoesNotExists() throws Exception {
-        CompanyDTO companyDTO = CompanyFactory.createCompanyDTO();
+        CompanyOutputDTO companyDTO = CompanyFactory.companyDTO();
         String jsonBody = objectMapper.writeValueAsString(companyDTO);
 
         ResultActions result = mockMvc

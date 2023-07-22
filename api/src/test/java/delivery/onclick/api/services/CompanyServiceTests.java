@@ -15,7 +15,9 @@ import org.mockito.Mockito;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import delivery.onclick.api.dtos.CompanyDTO;
+import delivery.onclick.api.dtos.CompanyInsertDTO;
+import delivery.onclick.api.dtos.CompanyOutputDTO;
+import delivery.onclick.api.dtos.CompanyUpdateDTO;
 import delivery.onclick.api.entities.Company;
 import delivery.onclick.api.factories.CompanyFactory;
 import delivery.onclick.api.repositories.CompanyRepository;
@@ -36,7 +38,9 @@ public class CompanyServiceTests {
     private UUID nonExistingId;
     private UUID dependentId;
     private Company company;
-    private CompanyDTO companyDTO;
+    private CompanyOutputDTO companyDTO;
+    private CompanyInsertDTO companyInsertDTO;
+    private CompanyUpdateDTO companyUpdateDTO;
     private List<Company> companies;
 
     @BeforeEach
@@ -45,9 +49,11 @@ public class CompanyServiceTests {
         nonExistingId = UUID.fromString("dbccdfc4-181d-48fd-80bc-35f954f8689f");
         // dependentId = UUID.fromString("");
 
-        company = CompanyFactory.createCompany();
-        companyDTO = CompanyFactory.createCompanyDTO();
-        companies = CompanyFactory.createListCompanies();
+        company = CompanyFactory.company();
+        companyDTO = CompanyFactory.companyDTO();
+        companies = CompanyFactory.listCompanies();
+        companyInsertDTO = CompanyFactory.companyInsertDTO();
+        companyUpdateDTO = CompanyFactory.companyUpdateDTO();
 
         Mockito.when(repository.save(ArgumentMatchers.any())).thenReturn(company);
         Mockito.when(repository.findAll()).thenReturn(companies);
@@ -67,7 +73,7 @@ public class CompanyServiceTests {
 
     @Test
     public void insertShouldReturnCompanyDTOWhenSuccessfullyRegistered() {
-        CompanyDTO result = service.insert(companyDTO);
+        CompanyOutputDTO result = service.insert(companyInsertDTO);
 
         Assertions.assertNotNull(result.getId());
         Assertions.assertEquals(companyDTO.getName(), result.getName());
@@ -76,7 +82,7 @@ public class CompanyServiceTests {
 
     @Test
     public void findAllShouldReturnCompanyList() {
-        List<CompanyDTO> list = service.findAll();
+        List<CompanyOutputDTO> list = service.findAll();
 
         Assertions.assertNotNull(list);
         Mockito.verify(repository, Mockito.times(1)).findAll();
@@ -84,7 +90,7 @@ public class CompanyServiceTests {
 
     @Test
     public void findByIdShouldReturnCompanyDTOWhenIdExists() {
-        CompanyDTO result = service.findById(existingId);
+        CompanyOutputDTO result = service.findById(existingId);
 
         Assertions.assertNotNull(result);
     }
@@ -98,7 +104,7 @@ public class CompanyServiceTests {
 
     @Test
     public void updateShouldReturnCompanyDTOWhenIdExists() {
-        CompanyDTO result = service.update(existingId, companyDTO);
+        CompanyOutputDTO result = service.update(existingId, companyUpdateDTO);
 
         Assertions.assertNotNull(result);
     }
@@ -106,7 +112,7 @@ public class CompanyServiceTests {
     @Test
     public void updateShouldThrowResourceNotFoundExceptionWhenIdDoesNotExists() {
         Assertions.assertThrows(ResourceNotFoundException.class, () -> {
-            service.update(nonExistingId, companyDTO);
+            service.update(nonExistingId, companyUpdateDTO);
         });
     }
 
