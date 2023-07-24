@@ -5,6 +5,7 @@ import java.util.Set;
 import java.util.UUID;
 
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -21,6 +22,8 @@ public class Company {
     private UUID id;
 
     private String name;
+
+    @Column(unique=true)
     private String url;
 
     @OneToMany(mappedBy = "company", cascade = CascadeType.REMOVE)

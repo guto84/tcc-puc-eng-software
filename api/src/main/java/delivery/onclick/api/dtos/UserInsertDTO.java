@@ -6,14 +6,29 @@ import java.util.UUID;
 
 import delivery.onclick.api.entities.Role;
 import delivery.onclick.api.entities.User;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 
 public class UserInsertDTO {
 
     private UUID id;
+
+    @NotBlank(message = "Required field")
     private String name;
+
+    @NotBlank(message = "Required field")
+    @Email(message = "Should be an email")
     private String email;
+
+    @NotBlank(message = "Required field")
     private String password;
+
+    @NotNull(message = "Required field")
     private CompanyOutputDTO company;
+
+    @NotEmpty(message = "Should be at least role")
     private List<RoleDTO> roles = new ArrayList<>();
 
     public UserInsertDTO() {

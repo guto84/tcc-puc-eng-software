@@ -20,6 +20,7 @@ import delivery.onclick.api.dtos.CompanyOutputDTO;
 import delivery.onclick.api.dtos.CompanyUpdateDTO;
 import delivery.onclick.api.dtos.CompanyUsersOutputDTO;
 import delivery.onclick.api.services.CompanyService;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping(value = "/companies")
@@ -30,7 +31,7 @@ public class CompanyController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public CompanyOutputDTO insert(@RequestBody CompanyInsertDTO dto) {
+    public CompanyOutputDTO insert(@Valid @RequestBody CompanyInsertDTO dto) {
         return service.insert(dto);
     }
 
@@ -48,7 +49,7 @@ public class CompanyController {
 
     @PutMapping(value = "/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public CompanyOutputDTO update(@PathVariable UUID id, @RequestBody CompanyUpdateDTO input) {
+    public CompanyOutputDTO update(@PathVariable UUID id, @Valid @RequestBody CompanyUpdateDTO input) {
         return service.update(id, input);
     }
 

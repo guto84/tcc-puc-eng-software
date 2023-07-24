@@ -6,12 +6,22 @@ import java.util.UUID;
 
 import delivery.onclick.api.entities.Role;
 import delivery.onclick.api.entities.User;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
 
 public class UserUpdateDTO {
 
     private UUID id;
+
+    @NotBlank(message = "Required field")
     private String name;
+
+    @NotBlank(message = "Required field")
+    @Email(message = "Should be an email")
     private String email;
+
+    @NotEmpty(message = "Should be at least role")
     private List<RoleDTO> roles = new ArrayList<>();
 
     public UserUpdateDTO() {

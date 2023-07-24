@@ -18,6 +18,7 @@ import delivery.onclick.api.dtos.UserInsertDTO;
 import delivery.onclick.api.dtos.UserRoleOutputDTO;
 import delivery.onclick.api.dtos.UserUpdateDTO;
 import delivery.onclick.api.services.UserService;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping(value = "/users")
@@ -28,7 +29,7 @@ public class UserController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public UserInsertDTO insert(@RequestBody UserInsertDTO dto) {
+    public UserInsertDTO insert(@Valid @RequestBody UserInsertDTO dto) {
         return service.insert(dto);
     }
 
@@ -40,7 +41,7 @@ public class UserController {
 
     @PutMapping(value = "/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public UserUpdateDTO update(@PathVariable UUID id, @RequestBody UserUpdateDTO input) {
+    public UserUpdateDTO update(@PathVariable UUID id, @Valid @RequestBody UserUpdateDTO input) {
         return service.update(id, input);
     }
 
