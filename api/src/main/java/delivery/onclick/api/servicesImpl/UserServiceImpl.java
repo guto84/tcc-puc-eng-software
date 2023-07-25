@@ -7,11 +7,19 @@ import java.util.Set;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import delivery.onclick.api.dtos.RoleDTO;
 import delivery.onclick.api.dtos.UserInsertDTO;
+import delivery.onclick.api.dtos.UserOutputDTO;
 import delivery.onclick.api.dtos.UserRoleOutputDTO;
 import delivery.onclick.api.dtos.UserUpdateDTO;
 import delivery.onclick.api.entities.Company;
@@ -26,7 +34,7 @@ import delivery.onclick.api.utils.ByteToUUID;
 import jakarta.persistence.EntityNotFoundException;
 
 @Service
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl implements UserDetailsService, UserService {
 
     @Autowired
     private UserRepository repository;
@@ -37,6 +45,7 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public UserInsertDTO insert(UserInsertDTO dto) {
         try {
+            BCryptPasswordEncoder encrypter = new BCryptPasswordEncoder();
             Company company = companyRepository.getReferenceById(dto.getCompany().getId());
             User entity = new User();
 
@@ -47,7 +56,7 @@ public class UserServiceImpl implements UserService {
             entity.setName(dto.getName());
             entity.setEmail(dto.getEmail());
             entity.setRoles(roles);
-            entity.setPassword(dto.getPassword());
+            entity.setPassword(encrypter.encode(dto.getPassword()));
             entity.setCompany(company);
 
             entity = repository.save(entity);
@@ -109,8 +118,39 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public void delete(UUID id) {
         Optional<User> entity = repository.findById(id);
-		entity.orElseThrow(() -> new ResourceNotFoundException());
-		repository.deleteById(id);
+        entity.orElseThrow(() -> new ResourceNotFoundException());
+        repository.deleteById(id);
     }
 
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        List<UserDetailsProjection> result = repository.searchUserAndRolesByEmail(username);
+        if (result.size() == 0) {
+            throw new UsernameNotFoundException("User not found");
+        }
+        User user = new User();
+        user.setEmail(username);
+        user.setPassword(result.get(0).getPassword());
+        for (UserDetailsProjection projection : result) {
+            user.addRole(new Role(ByteToUUID.convert(projection.getRoleId()), projection.getAuthority()));
+        }
+        return user;
+    }
+
+    public User authenticated() {
+        try {
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            Jwt jwtPrincipal = (Jwt) authentication.getPrincipal();
+            String username = jwtPrincipal.getClaim("username");
+            return repository.findByEmail(username).get();
+        } catch (Exception e) {
+            throw new UsernameNotFoundException("User not found");
+        }
+    }
+
+    @Transactional(readOnly = true)
+    public UserOutputDTO getMe() {
+        User user = authenticated();
+        return new UserOutputDTO(user);
+    }
 }

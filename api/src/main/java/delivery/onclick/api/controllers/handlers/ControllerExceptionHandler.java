@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import delivery.onclick.api.dtos.CustomError;
 import delivery.onclick.api.dtos.ValidationError;
 import delivery.onclick.api.servicesImpl.exceptions.DatabaseException;
+import delivery.onclick.api.servicesImpl.exceptions.ForbiddenException;
 import delivery.onclick.api.servicesImpl.exceptions.ResourceNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
 
@@ -37,6 +38,13 @@ public class ControllerExceptionHandler {
     public ResponseEntity<CustomError> database(DataIntegrityViolationException e, HttpServletRequest request) {
         HttpStatus status = HttpStatus.BAD_REQUEST;
         CustomError err = new CustomError(Instant.now(), status.value(), "Data integrity violation", request.getRequestURI());
+        return ResponseEntity.status(status).body(err);
+    }
+
+    @ExceptionHandler(ForbiddenException.class)
+    public ResponseEntity<CustomError> forbidden(ForbiddenException e, HttpServletRequest request) {
+        HttpStatus status = HttpStatus.FORBIDDEN;
+        CustomError err = new CustomError(Instant.now(), status.value(), e.getMessage(), request.getRequestURI());
         return ResponseEntity.status(status).body(err);
     }
 

@@ -5,6 +5,7 @@ import java.util.UUID;
 import delivery.onclick.api.dtos.UserInsertDTO;
 import delivery.onclick.api.dtos.UserRoleOutputDTO;
 import delivery.onclick.api.dtos.UserUpdateDTO;
+import delivery.onclick.api.entities.User;
 
 public interface UserService {
 
@@ -15,4 +16,6 @@ public interface UserService {
     UserUpdateDTO update(UUID id, UserUpdateDTO dto);
 
     void delete(UUID id);
+
+    User authenticated();
 }
