@@ -47,5 +47,8 @@ public interface UserRepository extends JpaRepository<User, UUID> {
 			          """)
 	List<UserDetailsProjection> searchUserAndRolesByEmail(@Param("email") String email);
 
+	@Query("SELECT t1 FROM User t1 "
+			+ "LEFT JOIN FETCH t1.company t2 "
+			+ "WHERE t1.email = :email")
 	Optional<User> findByEmail(String email);
 }

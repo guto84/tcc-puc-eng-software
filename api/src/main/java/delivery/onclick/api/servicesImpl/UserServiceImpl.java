@@ -128,9 +128,11 @@ public class UserServiceImpl implements UserDetailsService, UserService {
         if (result.size() == 0) {
             throw new UsernameNotFoundException("User not found");
         }
+        Company company = companyRepository.getReferenceById(ByteToUUID.convert(result.get(0).getCompanyId()));
         User user = new User();
         user.setEmail(username);
         user.setPassword(result.get(0).getPassword());
+        user.setCompany(company);
         for (UserDetailsProjection projection : result) {
             user.addRole(new Role(ByteToUUID.convert(projection.getRoleId()), projection.getAuthority()));
         }
