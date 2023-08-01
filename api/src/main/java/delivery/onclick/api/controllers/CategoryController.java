@@ -1,6 +1,5 @@
 package delivery.onclick.api.controllers;
 
-import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,46 +15,38 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import delivery.onclick.api.dtos.GroupCategoriesOutputDTO;
-import delivery.onclick.api.dtos.GroupCompanyOutputDTO;
-import delivery.onclick.api.dtos.GroupInsertDTO;
-import delivery.onclick.api.dtos.GroupOutputDTO;
-import delivery.onclick.api.dtos.GroupUpdateDTO;
-import delivery.onclick.api.services.GroupService;
+import delivery.onclick.api.dtos.CategoryGroupOutputDTO;
+import delivery.onclick.api.dtos.CategoryInsertDTO;
+import delivery.onclick.api.dtos.CategoryOutputDTO;
+import delivery.onclick.api.dtos.CategoryUpdateDTO;
+import delivery.onclick.api.services.CategoryService;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping(value = "/groups")
-public class GroupController {
+@RequestMapping(value = "/categories")
+public class CategoryController {
 
     @Autowired
-    private GroupService service;
+    private CategoryService service;
 
     @PreAuthorize("hasAnyRole('ROLE_PROVIDER')")
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public GroupOutputDTO insert(@Valid @RequestBody GroupInsertDTO dto) {
+    public CategoryOutputDTO insert(@Valid @RequestBody CategoryInsertDTO dto) {
         return service.insert(dto);
-    }
-
-    @PreAuthorize("hasAnyRole('ROLE_PROVIDER')")
-    @GetMapping
-    @ResponseStatus(HttpStatus.OK)
-    public List<GroupOutputDTO> findAll() {
-        return service.findAll();
     }
 
     @PreAuthorize("hasAnyRole('ROLE_PROVIDER')")
     @GetMapping(value = "/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public GroupCompanyOutputDTO findById(@PathVariable UUID id) {
+    public CategoryGroupOutputDTO findById(@PathVariable UUID id) {
         return service.findById(id);
     }
 
     @PreAuthorize("hasAnyRole('ROLE_PROVIDER')")
     @PutMapping(value = "/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public GroupOutputDTO update(@PathVariable UUID id, @Valid @RequestBody GroupUpdateDTO input) {
+    public CategoryOutputDTO update(@PathVariable UUID id, @Valid @RequestBody CategoryUpdateDTO input) {
         return service.update(id, input);
     }
 
@@ -64,12 +55,5 @@ public class GroupController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable UUID id) {
         service.delete(id);
-    }
-
-    @PreAuthorize("hasAnyRole('ROLE_PROVIDER')")
-    @GetMapping(value = "/{id}/categories")
-    @ResponseStatus(HttpStatus.OK)
-    public GroupCategoriesOutputDTO findByIdCategories(@PathVariable UUID id) {
-        return service.findByIdCategories(id);
     }
 }

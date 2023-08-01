@@ -1,10 +1,7 @@
 package delivery.onclick.api.entities;
 
-import java.util.HashSet;
-import java.util.Set;
 import java.util.UUID;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -12,12 +9,11 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "tb_group")
-public class Group {
+@Table(name = "tb_category")
+public class Category {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -27,19 +23,16 @@ public class Group {
     private String name;
 
     @ManyToOne
-    @JoinColumn(name = "company_id")
-    private Company company;
+    @JoinColumn(name = "group_id")
+    private Group group;
 
-    @OneToMany(mappedBy = "group", cascade = CascadeType.REMOVE)
-    private Set<Category> categories = new HashSet<>();
-
-    public Group() {
+    public Category() {
     }
 
-    public Group(UUID id, String name, Company company) {
+    public Category(UUID id, String name, Group group) {
         this.id = id;
         this.name = name;
-        this.company = company;
+        this.group = group;
     }
 
     public UUID getId() {
@@ -58,20 +51,12 @@ public class Group {
         this.name = name;
     }
 
-    public Company getCompany() {
-        return company;
+    public Group getGroup() {
+        return group;
     }
 
-    public void setCompany(Company company) {
-        this.company = company;
-    }
-
-    public Set<Category> getCategories() {
-        return categories;
-    }
-
-    public void setCategories(Set<Category> categories) {
-        this.categories = categories;
+    public void setGroup(Group group) {
+        this.group = group;
     }
 
     @Override
@@ -90,7 +75,7 @@ public class Group {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        Group other = (Group) obj;
+        Category other = (Category) obj;
         if (id == null) {
             if (other.id != null)
                 return false;

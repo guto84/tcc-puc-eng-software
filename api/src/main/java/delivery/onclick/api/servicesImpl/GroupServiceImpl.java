@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import delivery.onclick.api.dtos.GroupCategoriesOutputDTO;
 import delivery.onclick.api.dtos.GroupCompanyOutputDTO;
 import delivery.onclick.api.dtos.GroupInsertDTO;
 import delivery.onclick.api.dtos.GroupOutputDTO;
@@ -69,6 +70,13 @@ public class GroupServiceImpl implements GroupService {
         Optional<Group> entity = repository.findById(id);
         entity.orElseThrow(() -> new ResourceNotFoundException());
         repository.deleteById(id);
+    }
+
+    @Transactional(readOnly = true)
+    public GroupCategoriesOutputDTO findByIdCategories(UUID id) {
+        Optional<Group> obj = repository.findByIdCategories(id);
+        Group group = obj.orElseThrow(() -> new ResourceNotFoundException());
+        return new GroupCategoriesOutputDTO(group);
     }
 
 }
