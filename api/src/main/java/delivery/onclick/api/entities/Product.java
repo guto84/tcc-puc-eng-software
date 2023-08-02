@@ -1,10 +1,7 @@
 package delivery.onclick.api.entities;
 
-import java.util.HashSet;
-import java.util.Set;
 import java.util.UUID;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -12,12 +9,11 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "tb_category")
-public class Category {
+@Table(name = "tb_product")
+public class Product {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -26,20 +22,23 @@ public class Category {
     @Column(nullable = false)
     private String name;
 
+    private String description;
+
+    private Double price;
+
     @ManyToOne
-    @JoinColumn(name = "group_id")
-    private Group group;
+    @JoinColumn(name = "category_id")
+    private Category category;
 
-    @OneToMany(mappedBy = "category", cascade = CascadeType.REMOVE)
-    private Set<Product> products = new HashSet<>();
-
-    public Category() {
+    public Product() {
     }
 
-    public Category(UUID id, String name, Group group) {
+    public Product(UUID id, String name, String description, Double price, Category category) {
         this.id = id;
         this.name = name;
-        this.group = group;
+        this.description = description;
+        this.price = price;
+        this.category = category;
     }
 
     public UUID getId() {
@@ -58,20 +57,28 @@ public class Category {
         this.name = name;
     }
 
-    public Group getGroup() {
-        return group;
+    public String getDescription() {
+        return description;
     }
 
-    public void setGroup(Group group) {
-        this.group = group;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public Set<Product> getProducts() {
-        return products;
+    public Double getPrice() {
+        return price;
     }
 
-    public void setProducts(Set<Product> products) {
-        this.products = products;
+    public void setPrice(Double price) {
+        this.price = price;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
     }
 
     @Override
@@ -90,7 +97,7 @@ public class Category {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        Category other = (Category) obj;
+        Product other = (Product) obj;
         if (id == null) {
             if (other.id != null)
                 return false;

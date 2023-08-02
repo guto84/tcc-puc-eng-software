@@ -15,39 +15,38 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import delivery.onclick.api.dtos.CategoryGroupOutputDTO;
-import delivery.onclick.api.dtos.CategoryInsertDTO;
-import delivery.onclick.api.dtos.CategoryOutputDTO;
-import delivery.onclick.api.dtos.CategoryProductsOutputDTO;
-import delivery.onclick.api.dtos.CategoryUpdateDTO;
-import delivery.onclick.api.services.CategoryService;
+import delivery.onclick.api.dtos.ProductCategoryOutputDTO;
+import delivery.onclick.api.dtos.ProductInsertDTO;
+import delivery.onclick.api.dtos.ProductOutputDTO;
+import delivery.onclick.api.dtos.ProductUpdateDTO;
+import delivery.onclick.api.services.ProductService;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping(value = "/categories")
-public class CategoryController {
+@RequestMapping(value = "/products")
+public class ProductController {
 
     @Autowired
-    private CategoryService service;
+    private ProductService service;
 
     @PreAuthorize("hasAnyRole('ROLE_PROVIDER')")
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public CategoryOutputDTO insert(@Valid @RequestBody CategoryInsertDTO dto) {
+    public ProductOutputDTO insert(@Valid @RequestBody ProductInsertDTO dto) {
         return service.insert(dto);
     }
 
     @PreAuthorize("hasAnyRole('ROLE_PROVIDER')")
     @GetMapping(value = "/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public CategoryGroupOutputDTO findById(@PathVariable UUID id) {
+    public ProductCategoryOutputDTO findById(@PathVariable UUID id) {
         return service.findById(id);
     }
 
     @PreAuthorize("hasAnyRole('ROLE_PROVIDER')")
     @PutMapping(value = "/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public CategoryOutputDTO update(@PathVariable UUID id, @Valid @RequestBody CategoryUpdateDTO input) {
+    public ProductOutputDTO update(@PathVariable UUID id, @Valid @RequestBody ProductUpdateDTO input) {
         return service.update(id, input);
     }
 
@@ -56,12 +55,5 @@ public class CategoryController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable UUID id) {
         service.delete(id);
-    }
-
-    @PreAuthorize("hasAnyRole('ROLE_PROVIDER')")
-    @GetMapping(value = "/{id}/products")
-    @ResponseStatus(HttpStatus.OK)
-    public CategoryProductsOutputDTO findByIdProducts(@PathVariable UUID id) {
-        return service.findByIdProducts(id);
     }
 }

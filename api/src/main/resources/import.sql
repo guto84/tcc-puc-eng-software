@@ -27,8 +27,24 @@ INSERT INTO tb_group (id, name, company_id) VALUES ('500881dd-00fe-4ee2-844a-c0f
 INSERT INTO tb_group (id, name, company_id) VALUES ('4562bb44-07c6-42f4-9756-05eadd2a60a4', 'Bebidas', 'b239870c-5335-4421-8ecb-8df934645b45');
 
 INSERT INTO tb_category (id, name, group_id) VALUES ('2314ecad-f494-463b-8417-9f359e783447', 'Lanches com Hamburguer', 'a5d7226f-ceca-4099-bcc2-ca9ce4b9b5f3');
-INSERT INTO tb_category (id, name, group_id) VALUES ('545d28e6-1aa5-4b0f-b64d-53cf52cb4461', 'Lanches com Hamburguer', 'a5d7226f-ceca-4099-bcc2-ca9ce4b9b5f3');
+INSERT INTO tb_category (id, name, group_id) VALUES ('545d28e6-1aa5-4b0f-b64d-53cf52cb4461', 'Lanches com Frango', 'a5d7226f-ceca-4099-bcc2-ca9ce4b9b5f3');
 INSERT INTO tb_category (id, name, group_id) VALUES ('094468f8-cefa-4ba1-a402-e757d886e662', 'Porções Quentes', '500881dd-00fe-4ee2-844a-c0f2c0f56b12');
 INSERT INTO tb_category (id, name, group_id) VALUES ('9e25ffde-d57c-4f30-bc37-fdd7ad9772e8', 'Porções Frias', '500881dd-00fe-4ee2-844a-c0f2c0f56b12');
 INSERT INTO tb_category (id, name, group_id) VALUES ('92f20b48-473a-44fe-b87a-3054d264da7a', 'Bebidas', '4562bb44-07c6-42f4-9756-05eadd2a60a4');
 INSERT INTO tb_category (id, name, group_id) VALUES ('9cf7f655-afd7-4618-97d1-a6f0542043e0', 'Cervejas', '4562bb44-07c6-42f4-9756-05eadd2a60a4');
+
+INSERT INTO tb_product (id, name, description, price, category_id) VALUES ('b429e347-dda1-4b83-a0f9-70c1076fa4e9', 'X-Burguer', 'Hamburguer, Queijo e Tomate', 16.0, '2314ecad-f494-463b-8417-9f359e783447');
+INSERT INTO tb_product (id, name, description, price, category_id) VALUES ('e434be73-759b-45e3-a6fe-e2673d7cd14f', 'X-Salada', 'Hamburguer, Queijo, Tomate e Alface', 17.0, '2314ecad-f494-463b-8417-9f359e783447');
+INSERT INTO tb_product (id, name, description, price, category_id) VALUES ('79a2aecb-a6c7-4639-9af7-3892e3d0a923', 'X-Bacon', 'Hamburguer, Queijo, Tomate e Bacon', 19.0, '2314ecad-f494-463b-8417-9f359e783447');
+INSERT INTO tb_product (id, name, description, price, category_id) VALUES ('0cd63507-8e4e-4216-8f8b-dfdaf327b729', 'Frango', 'Frango, Queijo e Tomate', 17.0, '545d28e6-1aa5-4b0f-b64d-53cf52cb4461');
+INSERT INTO tb_product (id, name, description, price, category_id) VALUES ('3ba0b684-0229-4f0e-b309-254bf3627244', 'Frango-Salada', 'Frango, Queijo, Tomate e Alface', 18.0, '545d28e6-1aa5-4b0f-b64d-53cf52cb4461');
+INSERT INTO tb_product (id, name, description, price, category_id) VALUES ('d9a54de1-bbaf-445e-ad52-3ffe536163f3', 'Frango-Bacon', 'Frango, Queijo, Tomate e Bacon', 20.0, '545d28e6-1aa5-4b0f-b64d-53cf52cb4461');
+INSERT INTO tb_product (id, name, description, price, category_id) VALUES ('25b2c516-196b-418e-9a54-ac515cbd1f7e', 'Batata Frita', '500 gramas', 25.0, '094468f8-cefa-4ba1-a402-e757d886e662');
+INSERT INTO tb_product (id, name, description, price, category_id) VALUES ('5f969811-c7e1-4259-9cd9-3900896b70af', 'Polenta Frita', '500 gramas', 25.0, '094468f8-cefa-4ba1-a402-e757d886e662');
+INSERT INTO tb_product (id, name, description, price, category_id) VALUES ('073a5378-38a2-4756-adee-29c868163e5b', 'File de Tilápia', '500 gramas', 40.0, '094468f8-cefa-4ba1-a402-e757d886e662');
+INSERT INTO tb_product (id, name, description, price, category_id) VALUES ('bc90fffd-74b2-40a8-aaf4-7347b14a9157', 'Salame', '300 gramas', 30.0, '9e25ffde-d57c-4f30-bc37-fdd7ad9772e8');
+INSERT INTO tb_product (id, name, description, price, category_id) VALUES ('6e61f427-803d-4426-bc1a-5059e66616fc', 'Frios', '300 gramas', 30.0, '9e25ffde-d57c-4f30-bc37-fdd7ad9772e8');
+INSERT INTO tb_product (id, name, description, price, category_id) VALUES ('31e94aa3-3763-4536-acf7-06906da55ac1', 'Coca-Cola', 'Lata 350 ml', 4.0, '92f20b48-473a-44fe-b87a-3054d264da7a');
+INSERT INTO tb_product (id, name, description, price, category_id) VALUES ('e6b64e60-33fa-4642-8d94-87864be22744', 'Guaraná', 'Lata 350 ml', 4.0, '92f20b48-473a-44fe-b87a-3054d264da7a');
+INSERT INTO tb_product (id, name, description, price, category_id) VALUES ('34e48735-8c4f-4082-8844-7391ca590287', 'Brahma', 'Lata 350 ml', 5.0, '9cf7f655-afd7-4618-97d1-a6f0542043e0');
+INSERT INTO tb_product (id, name, description, price, category_id) VALUES ('ef613c44-b6ba-4b71-9c32-d462c6728c26', 'Skol', 'Lata 350 ml', 5.0, '9cf7f655-afd7-4618-97d1-a6f0542043e0');

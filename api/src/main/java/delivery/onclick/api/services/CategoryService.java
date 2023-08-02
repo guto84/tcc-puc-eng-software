@@ -5,6 +5,7 @@ import java.util.UUID;
 import delivery.onclick.api.dtos.CategoryGroupOutputDTO;
 import delivery.onclick.api.dtos.CategoryInsertDTO;
 import delivery.onclick.api.dtos.CategoryOutputDTO;
+import delivery.onclick.api.dtos.CategoryProductsOutputDTO;
 import delivery.onclick.api.dtos.CategoryUpdateDTO;
 
 public interface CategoryService {
@@ -16,4 +17,6 @@ public interface CategoryService {
     CategoryOutputDTO update(UUID id, CategoryUpdateDTO dto);
 
     void delete(UUID id);
+
+    CategoryProductsOutputDTO findByIdProducts(UUID id);
 }

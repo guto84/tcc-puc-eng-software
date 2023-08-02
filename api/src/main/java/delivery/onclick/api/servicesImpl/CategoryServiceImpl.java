@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import delivery.onclick.api.dtos.CategoryGroupOutputDTO;
 import delivery.onclick.api.dtos.CategoryInsertDTO;
 import delivery.onclick.api.dtos.CategoryOutputDTO;
+import delivery.onclick.api.dtos.CategoryProductsOutputDTO;
 import delivery.onclick.api.dtos.CategoryUpdateDTO;
 import delivery.onclick.api.entities.Category;
 import delivery.onclick.api.entities.Group;
@@ -62,5 +63,12 @@ public class CategoryServiceImpl implements CategoryService {
         Optional<Category> entity = repository.findById(id);
         entity.orElseThrow(() -> new ResourceNotFoundException());
         repository.deleteById(id);
+    }
+
+    @Transactional(readOnly = true)
+    public CategoryProductsOutputDTO findByIdProducts(UUID id) {
+        Optional<Category> obj = repository.findByIdProducts(id);
+        Category entity = obj.orElseThrow(() -> new ResourceNotFoundException());
+        return new CategoryProductsOutputDTO(entity);
     }
 }
