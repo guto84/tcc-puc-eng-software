@@ -15,40 +15,38 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import delivery.onclick.api.dtos.CategoryConfigurationsOutputDTO;
-import delivery.onclick.api.dtos.CategoryGroupOutputDTO;
-import delivery.onclick.api.dtos.CategoryInsertDTO;
-import delivery.onclick.api.dtos.CategoryOutputDTO;
-import delivery.onclick.api.dtos.CategoryProductsOutputDTO;
-import delivery.onclick.api.dtos.CategoryUpdateDTO;
-import delivery.onclick.api.services.CategoryService;
+import delivery.onclick.api.dtos.ConfigurationCategoryOutputDTO;
+import delivery.onclick.api.dtos.ConfigurationInsertDTO;
+import delivery.onclick.api.dtos.ConfigurationOutputDTO;
+import delivery.onclick.api.dtos.ConfigurationUpdateDTO;
+import delivery.onclick.api.services.ConfigurationService;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping(value = "/categories")
-public class CategoryController {
+@RequestMapping(value = "/configurations")
+public class ConfigurationController {
 
     @Autowired
-    private CategoryService service;
+    private ConfigurationService service;
 
     @PreAuthorize("hasAnyRole('ROLE_PROVIDER')")
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public CategoryOutputDTO insert(@Valid @RequestBody CategoryInsertDTO dto) {
+    public ConfigurationOutputDTO insert(@Valid @RequestBody ConfigurationInsertDTO dto) {
         return service.insert(dto);
     }
 
     @PreAuthorize("hasAnyRole('ROLE_PROVIDER')")
     @GetMapping(value = "/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public CategoryGroupOutputDTO findById(@PathVariable UUID id) {
+    public ConfigurationCategoryOutputDTO findById(@PathVariable UUID id) {
         return service.findById(id);
     }
 
     @PreAuthorize("hasAnyRole('ROLE_PROVIDER')")
     @PutMapping(value = "/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public CategoryOutputDTO update(@PathVariable UUID id, @Valid @RequestBody CategoryUpdateDTO input) {
+    public ConfigurationOutputDTO update(@PathVariable UUID id, @Valid @RequestBody ConfigurationUpdateDTO input) {
         return service.update(id, input);
     }
 
@@ -57,19 +55,5 @@ public class CategoryController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable UUID id) {
         service.delete(id);
-    }
-
-    @PreAuthorize("hasAnyRole('ROLE_PROVIDER')")
-    @GetMapping(value = "/{id}/products")
-    @ResponseStatus(HttpStatus.OK)
-    public CategoryProductsOutputDTO findByIdProducts(@PathVariable UUID id) {
-        return service.findByIdProducts(id);
-    }
-
-    @PreAuthorize("hasAnyRole('ROLE_PROVIDER')")
-    @GetMapping(value = "/{id}/configurations")
-    @ResponseStatus(HttpStatus.OK)
-    public CategoryConfigurationsOutputDTO findByIdConfigurations(@PathVariable UUID id) {
-        return service.findByIdConfigurations(id);
     }
 }

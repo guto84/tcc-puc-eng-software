@@ -1,10 +1,7 @@
 package delivery.onclick.api.entities;
 
-import java.util.HashSet;
-import java.util.Set;
 import java.util.UUID;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -12,37 +9,38 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "tb_category")
-public class Category {
+@Table(name = "tb_configuration")
+public class Configuration {
+    
+	@Id
+	@GeneratedValue(strategy = GenerationType.UUID)
+	private UUID id;
+	
+	@Column(nullable = false)
+	private String name;
+	
+	@Column(nullable = false)
+	private Integer min;
+	
+	@Column(nullable = false)
+	private Integer max;
+	
+	@ManyToOne
+	@JoinColumn(name = "category_id")
+	private Category category;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
-
-    @Column(nullable = false)
-    private String name;
-
-    @ManyToOne
-    @JoinColumn(name = "group_id")
-    private Group group;
-
-    @OneToMany(mappedBy = "category", cascade = CascadeType.REMOVE)
-    private Set<Product> products = new HashSet<>();
-
-    @OneToMany(mappedBy = "category", cascade = CascadeType.REMOVE)
-    private Set<Configuration> configurations = new HashSet<>();
-
-    public Category() {
+    public Configuration() {
     }
 
-    public Category(UUID id, String name, Group group) {
+    public Configuration(UUID id, String name, Integer min, Integer max, Category category) {
         this.id = id;
         this.name = name;
-        this.group = group;
+        this.min = min;
+        this.max = max;
+        this.category = category;
     }
 
     public UUID getId() {
@@ -61,28 +59,28 @@ public class Category {
         this.name = name;
     }
 
-    public Group getGroup() {
-        return group;
+    public Integer getMin() {
+        return min;
     }
 
-    public void setGroup(Group group) {
-        this.group = group;
+    public void setMin(Integer min) {
+        this.min = min;
     }
 
-    public Set<Product> getProducts() {
-        return products;
+    public Integer getMax() {
+        return max;
     }
 
-    public void setProducts(Set<Product> products) {
-        this.products = products;
+    public void setMax(Integer max) {
+        this.max = max;
     }
 
-    public Set<Configuration> getConfigurations() {
-        return configurations;
+    public Category getCategory() {
+        return category;
     }
 
-    public void setConfigurations(Set<Configuration> configurations) {
-        this.configurations = configurations;
+    public void setCategory(Category category) {
+        this.category = category;
     }
 
     @Override
@@ -101,7 +99,7 @@ public class Category {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        Category other = (Category) obj;
+        Configuration other = (Configuration) obj;
         if (id == null) {
             if (other.id != null)
                 return false;
@@ -110,4 +108,5 @@ public class Category {
         return true;
     }
 
+    
 }

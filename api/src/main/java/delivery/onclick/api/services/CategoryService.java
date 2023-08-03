@@ -2,6 +2,7 @@ package delivery.onclick.api.services;
 
 import java.util.UUID;
 
+import delivery.onclick.api.dtos.CategoryConfigurationsOutputDTO;
 import delivery.onclick.api.dtos.CategoryGroupOutputDTO;
 import delivery.onclick.api.dtos.CategoryInsertDTO;
 import delivery.onclick.api.dtos.CategoryOutputDTO;
@@ -19,4 +20,7 @@ public interface CategoryService {
     void delete(UUID id);
 
     CategoryProductsOutputDTO findByIdProducts(UUID id);
+
+    CategoryConfigurationsOutputDTO findByIdConfigurations(UUID id);
+    
 }

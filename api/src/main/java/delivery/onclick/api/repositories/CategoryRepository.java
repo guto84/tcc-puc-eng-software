@@ -16,4 +16,11 @@ public interface CategoryRepository extends JpaRepository<Category, UUID> {
             + "JOIN FETCH t3.company t4 "
             + "WHERE t1.id = :id")
     Optional<Category> findByIdProducts(UUID id);
+
+    @Query("SELECT t1 FROM Category t1 "
+            + "JOIN FETCH t1.configurations t2 "
+            + "JOIN FETCH t1.group t3 "
+            + "JOIN FETCH t3.company t4 "
+            + "WHERE t1.id = :id")
+    Optional<Category> findByIdConfigurations(UUID id);
 }
