@@ -6,11 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import delivery.onclick.api.entities.User;
+import delivery.onclick.api.services.AuthService;
 import delivery.onclick.api.services.UserService;
 import delivery.onclick.api.servicesImpl.exceptions.ForbiddenException;
 
 @Service
-public class AuthServiceImpl {
+public class AuthServiceImpl implements AuthService {
 
     @Autowired
     private UserService userService;

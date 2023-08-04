@@ -1,10 +1,7 @@
 package delivery.onclick.api.entities;
 
-import java.util.HashSet;
-import java.util.Set;
 import java.util.UUID;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -12,12 +9,11 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "tb_configuration")
-public class Configuration {
+@Table(name = "tb_configuration_item")
+public class ConfigurationItem {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -26,28 +22,23 @@ public class Configuration {
     @Column(nullable = false)
     private String name;
 
-    @Column(nullable = false)
-    private Integer min;
+    private String description;
 
-    @Column(nullable = false)
-    private Integer max;
+    private Double price;
 
     @ManyToOne
-    @JoinColumn(name = "category_id")
-    private Category category;
+    @JoinColumn(name = "configuration_id")
+    private Configuration configuration;
 
-    @OneToMany(mappedBy = "configuration", cascade = CascadeType.REMOVE)
-    private Set<ConfigurationItem> configurationItems = new HashSet<>();
-
-    public Configuration() {
+    public ConfigurationItem() {
     }
 
-    public Configuration(UUID id, String name, Integer min, Integer max, Category category) {
+    public ConfigurationItem(UUID id, String name, String description, Double price, Configuration configuration) {
         this.id = id;
         this.name = name;
-        this.min = min;
-        this.max = max;
-        this.category = category;
+        this.description = description;
+        this.price = price;
+        this.configuration = configuration;
     }
 
     public UUID getId() {
@@ -66,36 +57,28 @@ public class Configuration {
         this.name = name;
     }
 
-    public Integer getMin() {
-        return min;
+    public String getDescription() {
+        return description;
     }
 
-    public void setMin(Integer min) {
-        this.min = min;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public Integer getMax() {
-        return max;
+    public Double getPrice() {
+        return price;
     }
 
-    public void setMax(Integer max) {
-        this.max = max;
+    public void setPrice(Double price) {
+        this.price = price;
     }
 
-    public Category getCategory() {
-        return category;
+    public Configuration getConfiguration() {
+        return configuration;
     }
 
-    public void setCategory(Category category) {
-        this.category = category;
-    }
-
-    public Set<ConfigurationItem> getConfigurationItems() {
-        return configurationItems;
-    }
-
-    public void setConfigurationItems(Set<ConfigurationItem> configurationItems) {
-        this.configurationItems = configurationItems;
+    public void setConfiguration(Configuration configuration) {
+        this.configuration = configuration;
     }
 
     @Override
@@ -114,7 +97,7 @@ public class Configuration {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        Configuration other = (Configuration) obj;
+        ConfigurationItem other = (ConfigurationItem) obj;
         if (id == null) {
             if (other.id != null)
                 return false;
@@ -123,4 +106,5 @@ public class Configuration {
         return true;
     }
 
+    
 }

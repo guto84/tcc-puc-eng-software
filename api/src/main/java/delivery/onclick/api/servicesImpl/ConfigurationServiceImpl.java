@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import delivery.onclick.api.dtos.ConfigurationCategoryOutputDTO;
+import delivery.onclick.api.dtos.ConfigurationConfigurationItemsOutputDTO;
 import delivery.onclick.api.dtos.ConfigurationInsertDTO;
 import delivery.onclick.api.dtos.ConfigurationOutputDTO;
 import delivery.onclick.api.dtos.ConfigurationUpdateDTO;
@@ -66,6 +67,13 @@ public class ConfigurationServiceImpl implements ConfigurationService {
         Optional<Configuration> entity = repository.findById(id);
         entity.orElseThrow(() -> new ResourceNotFoundException());
         repository.deleteById(id);
+    }
+
+    @Transactional(readOnly = true)
+    public ConfigurationConfigurationItemsOutputDTO findByIdConfigurationItems(UUID id) {
+        Optional<Configuration> obj = repository.findByIdConfigurationItems(id);
+        Configuration entity = obj.orElseThrow(() -> new ResourceNotFoundException());
+        return new ConfigurationConfigurationItemsOutputDTO(entity);
     }
 
 }

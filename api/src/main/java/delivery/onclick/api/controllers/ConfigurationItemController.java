@@ -15,39 +15,38 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import delivery.onclick.api.dtos.ConfigurationCategoryOutputDTO;
-import delivery.onclick.api.dtos.ConfigurationConfigurationItemsOutputDTO;
-import delivery.onclick.api.dtos.ConfigurationInsertDTO;
-import delivery.onclick.api.dtos.ConfigurationOutputDTO;
-import delivery.onclick.api.dtos.ConfigurationUpdateDTO;
-import delivery.onclick.api.services.ConfigurationService;
+import delivery.onclick.api.dtos.ConfigurationItemConfigurationOutputDTO;
+import delivery.onclick.api.dtos.ConfigurationItemInsertDTO;
+import delivery.onclick.api.dtos.ConfigurationItemOutputDTO;
+import delivery.onclick.api.dtos.ConfigurationItemUpdateDTO;
+import delivery.onclick.api.services.ConfigurationItemService;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping(value = "/configurations")
-public class ConfigurationController {
+@RequestMapping(value = "/configuration-items")
+public class ConfigurationItemController {
 
     @Autowired
-    private ConfigurationService service;
+    private ConfigurationItemService service;
 
     @PreAuthorize("hasAnyRole('ROLE_PROVIDER')")
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public ConfigurationOutputDTO insert(@Valid @RequestBody ConfigurationInsertDTO dto) {
+    public ConfigurationItemOutputDTO insert(@Valid @RequestBody ConfigurationItemInsertDTO dto) {
         return service.insert(dto);
     }
 
     @PreAuthorize("hasAnyRole('ROLE_PROVIDER')")
     @GetMapping(value = "/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public ConfigurationCategoryOutputDTO findById(@PathVariable UUID id) {
+    public ConfigurationItemConfigurationOutputDTO findById(@PathVariable UUID id) {
         return service.findById(id);
     }
 
     @PreAuthorize("hasAnyRole('ROLE_PROVIDER')")
     @PutMapping(value = "/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public ConfigurationOutputDTO update(@PathVariable UUID id, @Valid @RequestBody ConfigurationUpdateDTO input) {
+    public ConfigurationItemOutputDTO update(@PathVariable UUID id, @Valid @RequestBody ConfigurationItemUpdateDTO input) {
         return service.update(id, input);
     }
 
@@ -56,12 +55,5 @@ public class ConfigurationController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable UUID id) {
         service.delete(id);
-    }
-
-    @PreAuthorize("hasAnyRole('ROLE_PROVIDER')")
-    @GetMapping(value = "/{id}/items")
-    @ResponseStatus(HttpStatus.OK)
-    public ConfigurationConfigurationItemsOutputDTO findByIdConfigurationItems(@PathVariable UUID id) {
-        return service.findByIdConfigurationItems(id);
     }
 }
