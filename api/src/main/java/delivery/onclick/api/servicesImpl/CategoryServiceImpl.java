@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import delivery.onclick.api.dtos.CategoryConfigurationsConfigurationItemsOutputDTO;
 import delivery.onclick.api.dtos.CategoryConfigurationsOutputDTO;
 import delivery.onclick.api.dtos.CategoryGroupOutputDTO;
 import delivery.onclick.api.dtos.CategoryInsertDTO;
@@ -78,5 +79,12 @@ public class CategoryServiceImpl implements CategoryService {
         Optional<Category> obj = repository.findByIdConfigurations(id);
         Category entity = obj.orElseThrow(() -> new ResourceNotFoundException());
         return new CategoryConfigurationsOutputDTO(entity);
+    }
+
+    @Override
+    public CategoryConfigurationsConfigurationItemsOutputDTO findByIdConfigurationsConfigurationItems(UUID id) {
+        Optional<Category> obj = repository.findByIdConfigurationsConfigurationItems(id);
+        Category entity = obj.orElseThrow(() -> new ResourceNotFoundException());
+        return new CategoryConfigurationsConfigurationItemsOutputDTO(entity);
     }
 }

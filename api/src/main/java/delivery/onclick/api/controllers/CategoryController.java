@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import delivery.onclick.api.dtos.CategoryConfigurationsConfigurationItemsOutputDTO;
 import delivery.onclick.api.dtos.CategoryConfigurationsOutputDTO;
 import delivery.onclick.api.dtos.CategoryGroupOutputDTO;
 import delivery.onclick.api.dtos.CategoryInsertDTO;
@@ -71,5 +72,12 @@ public class CategoryController {
     @ResponseStatus(HttpStatus.OK)
     public CategoryConfigurationsOutputDTO findByIdConfigurations(@PathVariable UUID id) {
         return service.findByIdConfigurations(id);
+    }
+
+    @PreAuthorize("hasAnyRole('ROLE_PROVIDER')")
+    @GetMapping(value = "/{id}/configurations/items")
+    @ResponseStatus(HttpStatus.OK)
+    public CategoryConfigurationsConfigurationItemsOutputDTO findByIdConfigurationsConfigurationItems(@PathVariable UUID id) {
+        return service.findByIdConfigurationsConfigurationItems(id);
     }
 }
