@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import delivery.onclick.api.dtos.CompanyGroupsCategoriesProductsOutputDTO;
 import delivery.onclick.api.dtos.CompanyInsertDTO;
 import delivery.onclick.api.dtos.CompanyOutputDTO;
 import delivery.onclick.api.dtos.CompanyUpdateDTO;
@@ -54,8 +55,8 @@ public class CompanyController {
     @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     @PutMapping(value = "/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public CompanyOutputDTO update(@PathVariable UUID id, @Valid @RequestBody CompanyUpdateDTO input) {
-        return service.update(id, input);
+    public CompanyOutputDTO update(@PathVariable UUID id, @Valid @RequestBody CompanyUpdateDTO dto) {
+        return service.update(id, dto);
     }
     
     @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
@@ -71,4 +72,10 @@ public class CompanyController {
     public CompanyUsersOutputDTO findByIdUsers(@PathVariable UUID id) {
         return service.findByIdUsers(id);
     }
+
+    @GetMapping(value = "/{url}/menu")
+	@ResponseStatus(HttpStatus.OK)
+	public CompanyGroupsCategoriesProductsOutputDTO findByUrl(@PathVariable String url) {
+		return service.findByUrl(url);
+	}
 }

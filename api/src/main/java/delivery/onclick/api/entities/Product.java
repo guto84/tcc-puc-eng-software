@@ -24,6 +24,7 @@ public class Product {
 
     private String description;
 
+    @Column(nullable = false)
     private Double price;
 
     @ManyToOne

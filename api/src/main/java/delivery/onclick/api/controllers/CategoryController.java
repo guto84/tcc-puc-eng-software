@@ -49,8 +49,8 @@ public class CategoryController {
     @PreAuthorize("hasAnyRole('ROLE_PROVIDER')")
     @PutMapping(value = "/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public CategoryOutputDTO update(@PathVariable UUID id, @Valid @RequestBody CategoryUpdateDTO input) {
-        return service.update(id, input);
+    public CategoryOutputDTO update(@PathVariable UUID id, @Valid @RequestBody CategoryUpdateDTO dto) {
+        return service.update(id, dto);
     }
 
     @PreAuthorize("hasAnyRole('ROLE_PROVIDER')")

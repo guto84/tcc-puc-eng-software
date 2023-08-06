@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import delivery.onclick.api.dtos.CompanyGroupsCategoriesProductsOutputDTO;
 import delivery.onclick.api.dtos.CompanyInsertDTO;
 import delivery.onclick.api.dtos.CompanyOutputDTO;
 import delivery.onclick.api.dtos.CompanyUpdateDTO;
@@ -72,5 +73,12 @@ public class CompanyServiceImpl implements CompanyService {
         Optional<Company> entity = repository.findByIdUsers(id);
         Company company = entity.orElseThrow(() -> new ResourceNotFoundException());
         return new CompanyUsersOutputDTO(company);
+    }
+
+    @Transactional(readOnly = true)
+    public CompanyGroupsCategoriesProductsOutputDTO findByUrl(String url) {
+        Optional<Company> entity = repository.findByUrl(url);
+        Company company = entity.orElseThrow(() -> new ResourceNotFoundException());
+        return new CompanyGroupsCategoriesProductsOutputDTO(company);
     }
 }

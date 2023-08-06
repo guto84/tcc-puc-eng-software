@@ -47,8 +47,8 @@ public class ConfigurationController {
     @PreAuthorize("hasAnyRole('ROLE_PROVIDER')")
     @PutMapping(value = "/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public ConfigurationOutputDTO update(@PathVariable UUID id, @Valid @RequestBody ConfigurationUpdateDTO input) {
-        return service.update(id, input);
+    public ConfigurationOutputDTO update(@PathVariable UUID id, @Valid @RequestBody ConfigurationUpdateDTO dto) {
+        return service.update(id, dto);
     }
 
     @PreAuthorize("hasAnyRole('ROLE_PROVIDER')")

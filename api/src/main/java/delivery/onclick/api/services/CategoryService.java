@@ -25,5 +25,5 @@ public interface CategoryService {
     CategoryConfigurationsOutputDTO findByIdConfigurations(UUID id);
 
     CategoryConfigurationsConfigurationItemsOutputDTO findByIdConfigurationsConfigurationItems(UUID id);
-    
+
 }

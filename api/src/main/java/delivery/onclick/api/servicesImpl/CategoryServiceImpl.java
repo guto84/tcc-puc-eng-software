@@ -81,10 +81,11 @@ public class CategoryServiceImpl implements CategoryService {
         return new CategoryConfigurationsOutputDTO(entity);
     }
 
-    @Override
+    @Transactional(readOnly = true)
     public CategoryConfigurationsConfigurationItemsOutputDTO findByIdConfigurationsConfigurationItems(UUID id) {
         Optional<Category> obj = repository.findByIdConfigurationsConfigurationItems(id);
         Category entity = obj.orElseThrow(() -> new ResourceNotFoundException());
         return new CategoryConfigurationsConfigurationItemsOutputDTO(entity);
     }
+
 }

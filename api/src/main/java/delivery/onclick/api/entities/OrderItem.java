@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -15,37 +16,35 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "tb_configuration_item")
-public class ConfigurationItem {
+@Table(name = "order_items")
+public class OrderItem {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
     @Column(nullable = false)
-    private String name;
-
-    private String description;
-
-    @Column(nullable = false)
-    private Double price;
+    private Double quantity;
 
     @ManyToOne
-    @JoinColumn(name = "configuration_id")
-    private Configuration configuration;
+    @JoinColumn(name = "product_id")
+    private Product product;
 
-    @OneToMany(mappedBy = "id.configurationItem")
+    @ManyToOne
+    @JoinColumn(name = "order_id")
+    private Order order;
+
+    @OneToMany(mappedBy = "id.orderItem", cascade = CascadeType.REMOVE)
     private Set<OrderConfiguration> orderConfigurations = new HashSet<>();
 
-    public ConfigurationItem() {
+    public OrderItem() {
     }
 
-    public ConfigurationItem(UUID id, String name, String description, Double price, Configuration configuration) {
+    public OrderItem(UUID id, Double quantity, Product product, Order order) {
         this.id = id;
-        this.name = name;
-        this.description = description;
-        this.price = price;
-        this.configuration = configuration;
+        this.quantity = quantity;
+        this.product = product;
+        this.order = order;
     }
 
     public UUID getId() {
@@ -56,36 +55,28 @@ public class ConfigurationItem {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public Double getQuantity() {
+        return quantity;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setQuantity(Double quantity) {
+        this.quantity = quantity;
     }
 
-    public String getDescription() {
-        return description;
+    public Product getProduct() {
+        return product;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setProduct(Product product) {
+        this.product = product;
     }
 
-    public Double getPrice() {
-        return price;
+    public Order getOrder() {
+        return order;
     }
 
-    public void setPrice(Double price) {
-        this.price = price;
-    }
-
-    public Configuration getConfiguration() {
-        return configuration;
-    }
-
-    public void setConfiguration(Configuration configuration) {
-        this.configuration = configuration;
+    public void setOrder(Order order) {
+        this.order = order;
     }
 
     public Set<OrderConfiguration> getOrderConfigurations() {
@@ -94,6 +85,15 @@ public class ConfigurationItem {
 
     public void setOrderConfigurations(Set<OrderConfiguration> orderConfigurations) {
         this.orderConfigurations = orderConfigurations;
+    }
+
+    public Double getSubTotal() {
+        Double sum = 0.0;
+        for (OrderConfiguration x : orderConfigurations) {
+            sum += x.getSubTotal();
+        }
+        sum += product.getPrice() * quantity;
+        return sum;
     }
 
     @Override
@@ -112,7 +112,7 @@ public class ConfigurationItem {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        ConfigurationItem other = (ConfigurationItem) obj;
+        OrderItem other = (OrderItem) obj;
         if (id == null) {
             if (other.id != null)
                 return false;

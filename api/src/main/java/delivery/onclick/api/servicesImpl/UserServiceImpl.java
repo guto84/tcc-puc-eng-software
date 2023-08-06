@@ -122,7 +122,7 @@ public class UserServiceImpl implements UserDetailsService, UserService {
         repository.deleteById(id);
     }
 
-    @Override
+    @Transactional(readOnly = true)
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         List<UserDetailsProjection> result = repository.searchUserAndRolesByEmail(username);
         if (result.size() == 0) {

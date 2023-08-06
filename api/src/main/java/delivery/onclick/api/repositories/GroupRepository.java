@@ -17,6 +17,13 @@ public interface GroupRepository extends JpaRepository<Group, UUID> {
 
 	@Query("SELECT t1 FROM Group t1 "
 			+ "JOIN FETCH t1.categories t2 "
+			+ "JOIN FETCH t2.products t3 "
+			+ "JOIN FETCH t1.company t4 "
+			+ "WHERE company = :company")
+	List<Group> findAllCategoriesProducts(Company company);
+
+	@Query("SELECT t1 FROM Group t1 "
+			+ "JOIN FETCH t1.categories t2 "
 			+ "JOIN FETCH t1.company t3 "
 			+ "WHERE t1.id = :id")
 	Optional<Group> findByIdCategories(UUID id);

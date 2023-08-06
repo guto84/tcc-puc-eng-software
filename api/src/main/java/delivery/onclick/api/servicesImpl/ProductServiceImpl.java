@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import delivery.onclick.api.dtos.ProductCategoryConfigurationsConfigurationItemsOutputDTO;
 import delivery.onclick.api.dtos.ProductCategoryOutputDTO;
 import delivery.onclick.api.dtos.ProductInsertDTO;
 import delivery.onclick.api.dtos.ProductOutputDTO;
@@ -66,6 +67,13 @@ public class ProductServiceImpl implements ProductService {
         Optional<Product> entity = repository.findById(id);
         entity.orElseThrow(() -> new ResourceNotFoundException());
         repository.deleteById(id);
+    }
+
+    @Transactional(readOnly = true)
+    public ProductCategoryConfigurationsConfigurationItemsOutputDTO findByIdConfigurations(UUID id) {
+        Optional<Product> obj = repository.findByIdConfigurations(id);
+        Product entity = obj.orElseThrow(() -> new ResourceNotFoundException());
+        return new ProductCategoryConfigurationsConfigurationItemsOutputDTO(entity);
     }
 
 }

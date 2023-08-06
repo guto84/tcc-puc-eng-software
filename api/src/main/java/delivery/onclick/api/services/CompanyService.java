@@ -3,6 +3,7 @@ package delivery.onclick.api.services;
 import java.util.List;
 import java.util.UUID;
 
+import delivery.onclick.api.dtos.CompanyGroupsCategoriesProductsOutputDTO;
 import delivery.onclick.api.dtos.CompanyInsertDTO;
 import delivery.onclick.api.dtos.CompanyOutputDTO;
 import delivery.onclick.api.dtos.CompanyUpdateDTO;
@@ -21,4 +22,6 @@ public interface CompanyService {
     void delete(UUID id);
 
     CompanyUsersOutputDTO findByIdUsers(UUID id);
+
+    CompanyGroupsCategoriesProductsOutputDTO findByUrl(String url);
 }

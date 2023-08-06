@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import delivery.onclick.api.dtos.GroupCategoriesOutputDTO;
+import delivery.onclick.api.dtos.GroupCategoriesProductsOutputDTO;
 import delivery.onclick.api.dtos.GroupCompanyOutputDTO;
 import delivery.onclick.api.dtos.GroupInsertDTO;
 import delivery.onclick.api.dtos.GroupOutputDTO;
@@ -46,11 +47,16 @@ public class GroupServiceImpl implements GroupService {
     }
 
     @Transactional(readOnly = true)
+    public List<GroupCategoriesProductsOutputDTO> findAllCategoriesProducts() {
+        List<Group> list = repository.findAllCategoriesProducts(userService.authenticated().getCompany());
+        return list.stream().map(x -> new GroupCategoriesProductsOutputDTO(x)).collect(Collectors.toList());
+    }
+
+    @Transactional(readOnly = true)
     public GroupCompanyOutputDTO findById(UUID id) {
         Optional<Group> obj = repository.findById(id);
-        Group group = obj.orElseThrow(() -> new ResourceNotFoundException());
-        GroupCompanyOutputDTO dto = new GroupCompanyOutputDTO(group);
-        return dto;
+        Group entity = obj.orElseThrow(() -> new ResourceNotFoundException());
+        return new GroupCompanyOutputDTO(entity);
     }
 
     @Transactional

@@ -45,8 +45,8 @@ public class UserController {
     @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     @PutMapping(value = "/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public UserUpdateDTO update(@PathVariable UUID id, @Valid @RequestBody UserUpdateDTO input) {
-        return service.update(id, input);
+    public UserUpdateDTO update(@PathVariable UUID id, @Valid @RequestBody UserUpdateDTO dto) {
+        return service.update(id, dto);
     }
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN')")

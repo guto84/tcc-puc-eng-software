@@ -19,7 +19,7 @@ public class CustomPasswordAuthenticationToken extends OAuth2AuthorizationGrantA
 	private final Set<String> scopes;
 	
 	public CustomPasswordAuthenticationToken(Authentication clientPrincipal,
-			@Nullable Set<String> scopes, @Nullable Map<String, Object> additionalParameters) {
+			@Nullable Set<String> scopes, Map<String, Object> additionalParameters) {
 		
 		super(new AuthorizationGrantType("password"), clientPrincipal, additionalParameters);
 		
