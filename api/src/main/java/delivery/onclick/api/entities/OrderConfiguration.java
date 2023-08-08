@@ -6,7 +6,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "order_configurations")
+@Table(name = "tb_order_configuration")
 public class OrderConfiguration {
 
     @EmbeddedId

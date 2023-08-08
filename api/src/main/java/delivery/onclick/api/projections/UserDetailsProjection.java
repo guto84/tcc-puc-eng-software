@@ -9,10 +9,11 @@ public interface UserDetailsProjection {
     String getEmail();
 
     String getPassword();
-    
+
     byte[] getCompanyId();
 
     byte[] getRoleId();
 
     String getAuthority();
+
 }

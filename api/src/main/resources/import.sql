@@ -88,3 +88,61 @@ INSERT INTO tb_order (id, name, address, address_number, address_complement, dis
 INSERT INTO tb_order (id, name, address, address_number, address_complement, district, zipcode, phone, status, company_id, created_at, updated_at) VALUES ('f5114f68-edff-465a-81d4-a5d654965888', 'Hamburguer Man', 'Rua Que Sobe e Desce', '1234', null, 'Distrito Perdido', '13990000', '19995671234', 0, 'b239870c-5335-4421-8ecb-8df934645b45', NOW(), NOW());
 INSERT INTO tb_order (id, name, address, address_number, address_complement, district, zipcode, phone, status, company_id, created_at, updated_at) VALUES ('7bcc9745-98a4-400b-bab3-f3de4232e974', 'Hamburguer Man', 'Rua Que Sobe e Desce', '1234', null, 'Distrito Perdido', '13990000', '19995671234', 0, 'b239870c-5335-4421-8ecb-8df934645b45', NOW(), NOW());
 INSERT INTO tb_order (id, name, address, address_number, address_complement, district, zipcode, phone, status, company_id, created_at, updated_at) VALUES ('1bd1599b-b4aa-4d0c-8a88-88eb3b2df758', 'Hamburguer Man', 'Rua Que Sobe e Desce', '1234', null, 'Distrito Perdido', '13990000', '19995671234', 0, 'b239870c-5335-4421-8ecb-8df934645b45', NOW(), NOW());
+
+INSERT INTO tb_order_item (id, quantity, product_id, order_id) VALUES ('c71082d3-f190-4365-982f-ac8407b7c648', 2.0, 'b429e347-dda1-4b83-a0f9-70c1076fa4e9', '98226435-79b9-4480-8b12-f22f3219e541');
+INSERT INTO tb_order_item (id, quantity, product_id, order_id) VALUES ('72f2edc7-9822-48f2-8ba0-9cacae8c1c7f', 1.0, '79a2aecb-a6c7-4639-9af7-3892e3d0a923', '98226435-79b9-4480-8b12-f22f3219e541');
+
+INSERT INTO tb_order_item (id, quantity, product_id, order_id) VALUES ('a17d3991-3a46-434b-987f-6b944fe090bc', 2.0, 'b429e347-dda1-4b83-a0f9-70c1076fa4e9', '676fe66c-2f25-476c-b39f-f3f9f4ad439a');
+INSERT INTO tb_order_item (id, quantity, product_id, order_id) VALUES ('fbd97ee4-7c7a-40ce-9f71-0379ddeb714e', 1.0, '79a2aecb-a6c7-4639-9af7-3892e3d0a923', '676fe66c-2f25-476c-b39f-f3f9f4ad439a');
+
+INSERT INTO tb_order_item (id, quantity, product_id, order_id) VALUES ('aed2fccc-06ae-4238-85cf-8ad2d234b03a', 2.0, 'b429e347-dda1-4b83-a0f9-70c1076fa4e9', '2539d6c2-271e-40ed-8721-225bd02c165a');
+INSERT INTO tb_order_item (id, quantity, product_id, order_id) VALUES ('c5df7177-8078-4403-9240-c8380ff8c25b', 1.0, '79a2aecb-a6c7-4639-9af7-3892e3d0a923', '2539d6c2-271e-40ed-8721-225bd02c165a');
+
+INSERT INTO tb_order_item (id, quantity, product_id, order_id) VALUES ('c39e35a0-810c-41dd-b193-6f9988f9a5e3', 2.0, 'b429e347-dda1-4b83-a0f9-70c1076fa4e9', '45c239d9-52a2-46ad-9d7d-e1bc28c36094');
+INSERT INTO tb_order_item (id, quantity, product_id, order_id) VALUES ('457b7b19-a2f9-4152-9588-3cba899511cb', 1.0, '79a2aecb-a6c7-4639-9af7-3892e3d0a923', '45c239d9-52a2-46ad-9d7d-e1bc28c36094');
+
+INSERT INTO tb_order_item (id, quantity, product_id, order_id) VALUES ('099a642a-df73-49a5-b0d8-ef7eae083e39', 2.0, 'b429e347-dda1-4b83-a0f9-70c1076fa4e9', '2b2c1040-c714-4895-ac25-2e75a871b1a5');
+INSERT INTO tb_order_item (id, quantity, product_id, order_id) VALUES ('eb409b9d-abc6-4eeb-8a7e-dce56affcb1a', 1.0, '79a2aecb-a6c7-4639-9af7-3892e3d0a923', '2b2c1040-c714-4895-ac25-2e75a871b1a5');
+
+INSERT INTO tb_order_item (id, quantity, product_id, order_id) VALUES ('dddf4061-4731-4d50-b0fb-4d68d095d197', 2.0, 'b429e347-dda1-4b83-a0f9-70c1076fa4e9', '07f02aa9-59c7-4c46-8721-1121bc4136db');
+INSERT INTO tb_order_item (id, quantity, product_id, order_id) VALUES ('ff7c5063-5234-4ff9-85db-98441c723f66', 1.0, '79a2aecb-a6c7-4639-9af7-3892e3d0a923', '07f02aa9-59c7-4c46-8721-1121bc4136db');
+
+INSERT INTO tb_order_item (id, quantity, product_id, order_id) VALUES ('9d0cf2f8-f353-445b-bb96-3721d35ec18e', 2.0, 'b429e347-dda1-4b83-a0f9-70c1076fa4e9', '3ec8d7b1-bdb2-4029-8a58-14d4218f79fa');
+INSERT INTO tb_order_item (id, quantity, product_id, order_id) VALUES ('341590f1-bc8e-41f8-b5fd-6690e36bb878', 1.0, '79a2aecb-a6c7-4639-9af7-3892e3d0a923', '3ec8d7b1-bdb2-4029-8a58-14d4218f79fa');
+
+INSERT INTO tb_order_item (id, quantity, product_id, order_id) VALUES ('3845eacb-44dc-4590-959e-c5bf08c422c3', 1.0, '25b2c516-196b-418e-9a54-ac515cbd1f7e', '1442f23a-ba86-4a17-824f-e9b90a19050c');
+
+INSERT INTO tb_order_item (id, quantity, product_id, order_id) VALUES ('07fa829b-67b1-400a-8a41-e62f8105d3b9', 1.0, '25b2c516-196b-418e-9a54-ac515cbd1f7e', '43a6a9db-7a42-4248-abb9-af3fdd697036');
+
+INSERT INTO tb_order_item (id, quantity, product_id, order_id) VALUES ('60fe222d-ca98-4e34-9bc6-a24d5c35bdf9', 1.0, '25b2c516-196b-418e-9a54-ac515cbd1f7e', '46dd314a-3e2e-42bd-9b10-2c00053634aa');
+
+INSERT INTO tb_order_item (id, quantity, product_id, order_id) VALUES ('25eaf5f3-36fd-4cfc-b9cd-ed81d9f43405', 1.0, '25b2c516-196b-418e-9a54-ac515cbd1f7e', '91eaf235-c034-4d1e-888c-4eab8dccd226');
+
+INSERT INTO tb_order_item (id, quantity, product_id, order_id) VALUES ('87a907c2-b4f6-40e7-9d5f-d4481a75ef62', 1.0, '25b2c516-196b-418e-9a54-ac515cbd1f7e', '7d22ad89-3d9f-4ce7-b630-c489a2ffd92c');
+
+INSERT INTO tb_order_item (id, quantity, product_id, order_id) VALUES ('b75f6655-710c-4d4b-af2e-afc59bff5453', 1.0, '25b2c516-196b-418e-9a54-ac515cbd1f7e', 'f5114f68-edff-465a-81d4-a5d654965888');
+
+INSERT INTO tb_order_item (id, quantity, product_id, order_id) VALUES ('365e6934-2fe2-4019-9c06-1cc1aeaa696a', 1.0, '25b2c516-196b-418e-9a54-ac515cbd1f7e', '7bcc9745-98a4-400b-bab3-f3de4232e974');
+
+INSERT INTO tb_order_item (id, quantity, product_id, order_id) VALUES ('d740fd0e-230b-4d5b-ae31-47b41fe7d6ac', 1.0, '25b2c516-196b-418e-9a54-ac515cbd1f7e', '1bd1599b-b4aa-4d0c-8a88-88eb3b2df758');
+
+INSERT INTO tb_order_configuration (order_item_id, configuration_item_id, quantity) VALUES ('c71082d3-f190-4365-982f-ac8407b7c648', '43b2c745-85c2-4452-a334-6c256566f841', 1.0);
+INSERT INTO tb_order_configuration (order_item_id, configuration_item_id, quantity) VALUES ('72f2edc7-9822-48f2-8ba0-9cacae8c1c7f', '4e3830a4-750b-457d-ae13-6c5dc2c1a479', 1.0);
+
+INSERT INTO tb_order_configuration (order_item_id, configuration_item_id, quantity) VALUES ('a17d3991-3a46-434b-987f-6b944fe090bc', '43b2c745-85c2-4452-a334-6c256566f841', 1.0);
+INSERT INTO tb_order_configuration (order_item_id, configuration_item_id, quantity) VALUES ('fbd97ee4-7c7a-40ce-9f71-0379ddeb714e', '4e3830a4-750b-457d-ae13-6c5dc2c1a479', 1.0);
+
+INSERT INTO tb_order_configuration (order_item_id, configuration_item_id, quantity) VALUES ('aed2fccc-06ae-4238-85cf-8ad2d234b03a', '43b2c745-85c2-4452-a334-6c256566f841', 1.0);
+INSERT INTO tb_order_configuration (order_item_id, configuration_item_id, quantity) VALUES ('c5df7177-8078-4403-9240-c8380ff8c25b', '4e3830a4-750b-457d-ae13-6c5dc2c1a479', 1.0);
+
+INSERT INTO tb_order_configuration (order_item_id, configuration_item_id, quantity) VALUES ('c39e35a0-810c-41dd-b193-6f9988f9a5e3', '43b2c745-85c2-4452-a334-6c256566f841', 1.0);
+INSERT INTO tb_order_configuration (order_item_id, configuration_item_id, quantity) VALUES ('457b7b19-a2f9-4152-9588-3cba899511cb', '4e3830a4-750b-457d-ae13-6c5dc2c1a479', 1.0);
+
+INSERT INTO tb_order_configuration (order_item_id, configuration_item_id, quantity) VALUES ('099a642a-df73-49a5-b0d8-ef7eae083e39', '43b2c745-85c2-4452-a334-6c256566f841', 1.0);
+INSERT INTO tb_order_configuration (order_item_id, configuration_item_id, quantity) VALUES ('eb409b9d-abc6-4eeb-8a7e-dce56affcb1a', '4e3830a4-750b-457d-ae13-6c5dc2c1a479', 1.0);
+
+INSERT INTO tb_order_configuration (order_item_id, configuration_item_id, quantity) VALUES ('dddf4061-4731-4d50-b0fb-4d68d095d197', '43b2c745-85c2-4452-a334-6c256566f841', 1.0);
+INSERT INTO tb_order_configuration (order_item_id, configuration_item_id, quantity) VALUES ('ff7c5063-5234-4ff9-85db-98441c723f66', '4e3830a4-750b-457d-ae13-6c5dc2c1a479', 1.0);
+
+INSERT INTO tb_order_configuration (order_item_id, configuration_item_id, quantity) VALUES ('9d0cf2f8-f353-445b-bb96-3721d35ec18e', '43b2c745-85c2-4452-a334-6c256566f841', 1.0);
+INSERT INTO tb_order_configuration (order_item_id, configuration_item_id, quantity) VALUES ('341590f1-bc8e-41f8-b5fd-6690e36bb878', '4e3830a4-750b-457d-ae13-6c5dc2c1a479', 1.0);

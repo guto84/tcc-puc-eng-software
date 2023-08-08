@@ -132,3 +132,71 @@ public class OrderServiceImpl implements OrderService {
     }
 
 }
+
+// {
+// "id": "13fb8068-c66a-4d6a-b5a7-5dc89d3012e4",
+// "name": "orderConfigurations",
+// "address": "rua perdida",
+// "addressNumber": "145",
+// "addressComplement": null,
+// "district": "distrito perdido",
+// "zipcode": "13990000",
+// "phone": "19993604361",
+// "status": "RECEIVED",
+// "createdAt": "2023-08-06T12:25:55.422+00:00",
+// "total": 56.0,
+// "orderItems": [
+// {
+// "id": "9e229939-f7cf-4abe-9d40-262df0ea4fb2",
+// "quantity": 2.0,
+// "product": {
+// "id": "b429e347-dda1-4b83-a0f9-70c1076fa4e9",
+// "name": "X-Burguer",
+// "description": "Hamburguer, Queijo e Tomate",
+// "price": 16.0
+// },
+// "orderConfigurations": [
+// {
+// "orderItem": {
+// "id": "9e229939-f7cf-4abe-9d40-262df0ea4fb2",
+// "quantity": 2.0
+// },
+// "configurationItem": {
+// "id": "43b2c745-85c2-4452-a334-6c256566f841",
+// "name": "Pão de Hamburguer",
+// "description": null,
+// "price": 0.0
+// },
+// "quantity": 1.0
+// }
+// ],
+// "subTotal": 32.0
+// },
+// {
+// "id": "b0f8dc1c-27a2-45a7-b857-acd76a8e54ff",
+// "quantity": 1.0,
+// "product": {
+// "id": "79a2aecb-a6c7-4639-9af7-3892e3d0a923",
+// "name": "X-Bacon",
+// "description": "Hamburguer, Queijo, Tomate e Bacon",
+// "price": 19.0
+// },
+// "orderConfigurations": [
+// {
+// "orderItem": {
+// "id": "b0f8dc1c-27a2-45a7-b857-acd76a8e54ff",
+// "quantity": 1.0
+// },
+// "configurationItem": {
+// "id": "4e3830a4-750b-457d-ae13-6c5dc2c1a479",
+// "name": "Pão Australiano",
+// "description": null,
+// "price": 5.0
+// },
+// "quantity": 1.0
+// }
+// ],
+// "subTotal": 24.0
+// }
+// ]
+// }

@@ -17,12 +17,13 @@ public interface OrderRepository extends JpaRepository<Order, UUID> {
     Page<Order> findByCompanyWithPagination(Company company, Pageable pageable);
 
     @Query("SELECT t1 FROM Order t1 "
-            + "JOIN FETCH t1.company t2 "
-            + "JOIN FETCH t1.orderItems t3 "
-            + "JOIN FETCH t3.product t4 "
-            + "JOIN FETCH t4.category t5 "
-            + "JOIN FETCH t5.group t6 "
-            + "JOIN FETCH t3.orderConfigurations t7 "
+            + "LEFT JOIN FETCH t1.company t2 "
+            + "LEFT JOIN FETCH t1.orderItems t3 "
+            + "LEFT JOIN FETCH t3.product t4 "
+            + "LEFT JOIN FETCH t4.category t5 "
+            + "LEFT JOIN FETCH t5.group t6 "
+            + "LEFT JOIN FETCH t3.orderConfigurations t7 "
             + "WHERE t1.id = :id")
     Optional<Order> findById(UUID id);
+
 }
