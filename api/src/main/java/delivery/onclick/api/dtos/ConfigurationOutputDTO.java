@@ -8,8 +8,8 @@ public class ConfigurationOutputDTO {
 
     private UUID id;
     private String name;
-    private Integer min;
-    private Integer max;
+    private Integer minimum;
+    private Integer maximum;
 
     public ConfigurationOutputDTO() {
     }
@@ -17,8 +17,8 @@ public class ConfigurationOutputDTO {
     public ConfigurationOutputDTO(Configuration entity) {
         id = entity.getId();
         name = entity.getName();
-        min = entity.getMin();
-        max = entity.getMax();
+        minimum = entity.getMinimum();
+        maximum = entity.getMaximum();
     }
 
     public UUID getId() {
@@ -29,12 +29,12 @@ public class ConfigurationOutputDTO {
         return name;
     }
 
-    public Integer getMin() {
-        return min;
+    public Integer getMinimum() {
+        return minimum;
     }
 
-    public Integer getMax() {
-        return max;
+    public Integer getMaximum() {
+        return maximum;
     }
 
 }

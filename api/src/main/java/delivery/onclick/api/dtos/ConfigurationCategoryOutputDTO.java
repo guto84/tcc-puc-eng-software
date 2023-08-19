@@ -8,8 +8,8 @@ public class ConfigurationCategoryOutputDTO {
 
     private UUID id;
     private String name;
-    private Integer min;
-    private Integer max;
+    private Integer minimum;
+    private Integer maximum;
     private CategoryOutputDTO category;
 
     public ConfigurationCategoryOutputDTO() {
@@ -18,8 +18,8 @@ public class ConfigurationCategoryOutputDTO {
     public ConfigurationCategoryOutputDTO(Configuration entity) {
         id = entity.getId();
         name = entity.getName();
-        min = entity.getMin();
-        max = entity.getMax();
+        minimum = entity.getMinimum();
+        maximum = entity.getMaximum();
         category = new CategoryOutputDTO(entity.getCategory());
     }
 
@@ -31,12 +31,12 @@ public class ConfigurationCategoryOutputDTO {
         return name;
     }
 
-    public Integer getMin() {
-        return min;
+    public Integer getMinimum() {
+        return minimum;
     }
 
-    public Integer getMax() {
-        return max;
+    public Integer getMaximum() {
+        return maximum;
     }
 
     public CategoryOutputDTO getCategory() {

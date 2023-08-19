@@ -27,10 +27,10 @@ public class Configuration {
     private String name;
 
     @Column(nullable = false)
-    private Integer min;
+    private Integer minimum;
 
     @Column(nullable = false)
-    private Integer max;
+    private Integer maximum;
 
     @ManyToOne
     @JoinColumn(name = "category_id")
@@ -42,11 +42,11 @@ public class Configuration {
     public Configuration() {
     }
 
-    public Configuration(UUID id, String name, Integer min, Integer max, Category category) {
+    public Configuration(UUID id, String name, Integer minimum, Integer maximum, Category category) {
         this.id = id;
         this.name = name;
-        this.min = min;
-        this.max = max;
+        this.minimum = minimum;
+        this.maximum = maximum;
         this.category = category;
     }
 
@@ -66,20 +66,20 @@ public class Configuration {
         this.name = name;
     }
 
-    public Integer getMin() {
-        return min;
+    public Integer getMinimum() {
+        return minimum;
     }
 
-    public void setMin(Integer min) {
-        this.min = min;
+    public void setMinimum(Integer minimum) {
+        this.minimum = minimum;
     }
 
-    public Integer getMax() {
-        return max;
+    public Integer getMaximum() {
+        return maximum;
     }
 
-    public void setMax(Integer max) {
-        this.max = max;
+    public void setMaximum(Integer maximum) {
+        this.maximum = maximum;
     }
 
     public Category getCategory() {
@@ -121,6 +121,11 @@ public class Configuration {
         } else if (!id.equals(other.id))
             return false;
         return true;
+    }
+
+    @Override
+    public String toString() {
+        return "Configuration [id=" + id + ", name=" + name + ", minimum=" + minimum + ", maximum=" + maximum + "]";
     }
 
 }

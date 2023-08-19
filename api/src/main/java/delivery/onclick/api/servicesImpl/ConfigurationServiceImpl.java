@@ -34,8 +34,8 @@ public class ConfigurationServiceImpl implements ConfigurationService {
         Category category = categoryRepository.getReferenceById(dto.getCategory().getId());
         Configuration entity = new Configuration();
         entity.setName(dto.getName());
-        entity.setMax(dto.getMax());
-        entity.setMin(dto.getMin());
+        entity.setMaximum(dto.getMaximum());
+        entity.setMinimum(dto.getMinimum());
         entity.setCategory(category);
         entity = repository.save(entity);
         return new ConfigurationOutputDTO(entity);
@@ -53,8 +53,8 @@ public class ConfigurationServiceImpl implements ConfigurationService {
         try {
             Configuration entity = repository.getReferenceById(id);
             entity.setName(dto.getName());
-            entity.setMax(dto.getMax());
-            entity.setMin(dto.getMin());
+            entity.setMaximum(dto.getMaximum());
+            entity.setMinimum(dto.getMinimum());
             entity = repository.save(entity);
             return new ConfigurationOutputDTO(entity);
         } catch (EntityNotFoundException e) {

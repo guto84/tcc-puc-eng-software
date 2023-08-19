@@ -64,10 +64,4 @@ public class OrderConfigurationPK implements Serializable {
 		return Objects.equals(configurationItem, other.configurationItem) && Objects.equals(orderItem, other.orderItem);
 	}
 
-	@Override
-	public String toString() {
-		return "OrderConfigurationPK [orderItem=" + orderItem + ", configurationItem=" + configurationItem + "]";
-	}
-	
-	
 }

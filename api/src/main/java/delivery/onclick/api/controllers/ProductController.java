@@ -30,13 +30,6 @@ public class ProductController {
     @Autowired
     private ProductService service;
 
-    @PreAuthorize("hasAnyRole('ROLE_PROVIDER')")
-    @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public ProductOutputDTO insert(@Valid @RequestBody ProductInsertDTO dto) {
-        return service.insert(dto);
-    }
-
     @GetMapping(value = "/{id}")
     @ResponseStatus(HttpStatus.OK)
     public ProductCategoryOutputDTO findById(@PathVariable UUID id) {
@@ -47,6 +40,13 @@ public class ProductController {
     @ResponseStatus(HttpStatus.OK)
     public ProductCategoryConfigurationsConfigurationItemsOutputDTO findByIdConfigurations(@PathVariable UUID id) {
         return service.findByIdConfigurations(id);
+    }
+
+    @PreAuthorize("hasAnyRole('ROLE_PROVIDER')")
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public ProductOutputDTO insert(@Valid @RequestBody ProductInsertDTO dto) {
+        return service.insert(dto);
     }
 
     @PreAuthorize("hasAnyRole('ROLE_PROVIDER')")

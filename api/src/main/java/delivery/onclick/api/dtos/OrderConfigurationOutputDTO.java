@@ -4,21 +4,17 @@ import delivery.onclick.api.entities.OrderConfiguration;
 
 public class OrderConfigurationOutputDTO {
 
-    private OrderItemOutputDTO orderItem;
-    private ConfigurationItemOutputDTO configurationItem;
     private Double quantity;
+    private Double subTotal;
+    private ConfigurationItemOutputDTO configurationItem;
 
     public OrderConfigurationOutputDTO() {
     }
 
     public OrderConfigurationOutputDTO(OrderConfiguration entity) {
-        orderItem = new OrderItemOutputDTO(entity.getOrderItem());
         configurationItem = new ConfigurationItemOutputDTO(entity.getConfigurationItem());
         quantity = entity.getQuantity();
-    }
-
-    public OrderItemOutputDTO getOrderItem() {
-        return orderItem;
+        subTotal = entity.getSubTotal();
     }
 
     public ConfigurationItemOutputDTO getConfigurationItem() {
@@ -27,6 +23,10 @@ public class OrderConfigurationOutputDTO {
 
     public Double getQuantity() {
         return quantity;
+    }
+
+    public Double getSubTotal() {
+        return subTotal;
     }
 
 }

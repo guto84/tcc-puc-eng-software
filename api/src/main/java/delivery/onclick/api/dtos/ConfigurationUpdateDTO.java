@@ -14,32 +14,32 @@ public class ConfigurationUpdateDTO {
     @NotNull(message = "Required field")
     @Min(value = 0, message = "The value must be greater than or equal to 0")
     @Max(value = 10, message = "The value must be less than or equal to 10")
-    private Integer min;
+    private Integer minimum;
 
     @NotNull(message = "Required field")
     @Min(value = 0, message = "The value must be greater than or equal to 0")
     @Max(value = 10, message = "The value must be less than or equal to 10")
-    private Integer max;
+    private Integer maximum;
 
     public ConfigurationUpdateDTO() {
     }
 
     public ConfigurationUpdateDTO(Configuration entity) {
         name = entity.getName();
-        min = entity.getMin();
-        max = entity.getMax();
+        minimum = entity.getMinimum();
+        maximum = entity.getMaximum();
     }
 
     public String getName() {
         return name;
     }
 
-    public Integer getMin() {
-        return min;
+    public Integer getMinimum() {
+        return minimum;
     }
 
-    public Integer getMax() {
-        return max;
+    public Integer getMaximum() {
+        return maximum;
     }
 
 }

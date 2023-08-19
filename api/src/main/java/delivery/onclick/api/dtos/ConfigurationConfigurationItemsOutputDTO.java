@@ -11,18 +11,19 @@ public class ConfigurationConfigurationItemsOutputDTO {
 
     private UUID id;
     private String name;
-    private Integer min;
-    private Integer max;
+    private Integer minimum;
+    private Integer maximum;
     private List<ConfigurationItemOutputDTO> configurationItems = new ArrayList<>();
 
     public ConfigurationConfigurationItemsOutputDTO() {
     }
 
     public ConfigurationConfigurationItemsOutputDTO(Configuration entity) {
+        System.out.println(entity);
         id = entity.getId();
         name = entity.getName();
-        min = entity.getMin();
-        max = entity.getMin();
+        minimum = entity.getMinimum();
+        maximum = entity.getMaximum();
         for (ConfigurationItem x : entity.getConfigurationItems()) {
             configurationItems.add(new ConfigurationItemOutputDTO(x));
         }
@@ -36,12 +37,12 @@ public class ConfigurationConfigurationItemsOutputDTO {
         return name;
     }
 
-    public Integer getMin() {
-        return min;
+    public Integer getMinimum() {
+        return minimum;
     }
 
-    public Integer getMax() {
-        return max;
+    public Integer getMaximum() {
+        return maximum;
     }
 
     public List<ConfigurationItemOutputDTO> getConfigurationItems() {
