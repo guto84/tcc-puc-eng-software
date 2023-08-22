@@ -7,6 +7,7 @@ import java.util.Set;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -26,6 +27,7 @@ import delivery.onclick.api.entities.Company;
 import delivery.onclick.api.entities.Role;
 import delivery.onclick.api.entities.User;
 import delivery.onclick.api.projections.UserDetailsProjection;
+import delivery.onclick.api.projections.UserDetailsByteProjection;
 import delivery.onclick.api.repositories.CompanyRepository;
 import delivery.onclick.api.repositories.UserRepository;
 import delivery.onclick.api.services.UserService;
@@ -35,6 +37,9 @@ import jakarta.persistence.EntityNotFoundException;
 
 @Service
 public class UserServiceImpl implements UserDetailsService, UserService {
+
+    @Autowired
+    Environment env;
 
     @Autowired
     private UserRepository repository;
@@ -69,14 +74,25 @@ public class UserServiceImpl implements UserDetailsService, UserService {
     @Transactional(readOnly = true)
     public UserRoleOutputDTO findById(UUID id) {
         try {
-            List<UserDetailsProjection> result = repository.searchUserAndRolesById(id);
             User entity = new User();
-
-            entity.setId(ByteToUUID.convert(result.get(0).getId()));
-            entity.setName(result.get(0).getName());
-            entity.setEmail(result.get(0).getEmail());
-            for (UserDetailsProjection x : result) {
-                entity.addRole(new Role(ByteToUUID.convert(x.getRoleId()), x.getAuthority()));
+            String testProperty = "test";
+            if (testProperty.equals(env.getProperty("spring.profiles.active"))) {
+                List<UserDetailsByteProjection> result = repository.searchUserAndRolesByteById(id);
+                entity.setId(ByteToUUID.convert(result.get(0).getId()));
+                entity.setName(result.get(0).getName());
+                entity.setEmail(result.get(0).getEmail());
+                for (UserDetailsByteProjection x : result) {
+                    entity.addRole(new Role(ByteToUUID.convert(x.getRoleId()), x.getAuthority()));
+                }
+            }
+            if (!testProperty.equals(env.getProperty("spring.profiles.active"))) {
+                List<UserDetailsProjection> result = repository.searchUserAndRolesById(id);
+                entity.setId(result.get(0).getId());
+                entity.setName(result.get(0).getName());
+                entity.setEmail(result.get(0).getEmail());
+                for (UserDetailsProjection x : result) {
+                    entity.addRole(new Role(x.getRoleId(), x.getAuthority()));
+                }
             }
 
             return new UserRoleOutputDTO(entity);
@@ -88,20 +104,34 @@ public class UserServiceImpl implements UserDetailsService, UserService {
     @Transactional
     public UserUpdateDTO update(UUID id, UserUpdateDTO dto) {
         try {
-            // projection to dto
-            List<UserDetailsProjection> result = repository.searchUserAndRolesById(id);
-            Company company = companyRepository.getReferenceById(ByteToUUID.convert(result.get(0).getCompanyId()));
             User entity = new User();
-            entity.setId(ByteToUUID.convert(result.get(0).getId()));
-            entity.setName(result.get(0).getName());
-            entity.setEmail(result.get(0).getEmail());
-            entity.setPassword(result.get(0).getPassword());
-            entity.setCompany(company);
-            for (UserDetailsProjection x : result) {
-                entity.addRole(new Role(ByteToUUID.convert(x.getRoleId()), x.getAuthority()));
+
+            String testProperty = "test";
+            if (testProperty.equals(env.getProperty("spring.profiles.active"))) {
+                List<UserDetailsByteProjection> result = repository.searchUserAndRolesByteById(id);
+                Company company = companyRepository.getReferenceById(ByteToUUID.convert(result.get(0).getCompanyId()));
+                entity.setCompany(company);
+                entity.setId(ByteToUUID.convert(result.get(0).getId()));
+                entity.setName(result.get(0).getName());
+                entity.setEmail(result.get(0).getEmail());
+                entity.setPassword(result.get(0).getPassword());
+                for (UserDetailsByteProjection x : result) {
+                    entity.addRole(new Role(ByteToUUID.convert(x.getRoleId()), x.getAuthority()));
+                }
+            }
+            if (!testProperty.equals(env.getProperty("spring.profiles.active"))) {
+                List<UserDetailsProjection> result = repository.searchUserAndRolesById(id);
+                Company company = companyRepository.getReferenceById(result.get(0).getCompanyId());
+                entity.setCompany(company);
+                entity.setId(result.get(0).getId());
+                entity.setName(result.get(0).getName());
+                entity.setEmail(result.get(0).getEmail());
+                entity.setPassword(result.get(0).getPassword());
+                for (UserDetailsProjection x : result) {
+                    entity.addRole(new Role(x.getRoleId(), x.getAuthority()));
+                }
             }
 
-            // dto to entity
             for (RoleDTO role : dto.getRoles()) {
                 entity.addRole(new Role(role.getId(), role.getAuthority()));
             }
@@ -124,17 +154,32 @@ public class UserServiceImpl implements UserDetailsService, UserService {
 
     @Transactional(readOnly = true)
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        List<UserDetailsProjection> result = repository.searchUserAndRolesByEmail(username);
-        if (result.size() == 0) {
-            throw new UsernameNotFoundException("User not found");
-        }
-        Company company = companyRepository.getReferenceById(ByteToUUID.convert(result.get(0).getCompanyId()));
         User user = new User();
         user.setEmail(username);
-        user.setPassword(result.get(0).getPassword());
-        user.setCompany(company);
-        for (UserDetailsProjection projection : result) {
-            user.addRole(new Role(ByteToUUID.convert(projection.getRoleId()), projection.getAuthority()));
+        String testProperty = "test";
+        if (testProperty.equals(env.getProperty("spring.profiles.active"))) {
+            List<UserDetailsByteProjection> result = repository.searchUserAndRolesByEmailByte(username);
+            if (result.size() == 0) {
+                throw new UsernameNotFoundException("User not found");
+            }
+            Company company = companyRepository.getReferenceById(ByteToUUID.convert(result.get(0).getCompanyId()));
+            user.setCompany(company);
+            user.setPassword(result.get(0).getPassword());
+            for (UserDetailsByteProjection item : result) {
+                user.addRole(new Role(ByteToUUID.convert(item.getRoleId()), item.getAuthority()));
+            }
+        }
+        if (!testProperty.equals(env.getProperty("spring.profiles.active"))) {
+            List<UserDetailsProjection> result = repository.searchUserAndRolesByEmail(username);
+            if (result.size() == 0) {
+                throw new UsernameNotFoundException("User not found");
+            }
+            Company company = companyRepository.getReferenceById(result.get(0).getCompanyId());
+            user.setCompany(company);
+            user.setPassword(result.get(0).getPassword());
+            for (UserDetailsProjection projection : result) {
+                user.addRole(new Role(projection.getRoleId(), projection.getAuthority()));
+            }
         }
         return user;
     }

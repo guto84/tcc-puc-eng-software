@@ -1,10 +1,10 @@
 package delivery.onclick.api.projections;
 
-import java.util.UUID;
+// import java.util.UUID;
 
-public interface UserDetailsProjection {
+public interface UserDetailsByteProjection {
 
-    UUID getId();
+    byte[] getId();
 
     String getName();
 
@@ -12,9 +12,9 @@ public interface UserDetailsProjection {
 
     String getPassword();
 
-    UUID getCompanyId();
+    byte[] getCompanyId();
 
-    UUID getRoleId();
+    byte[] getRoleId();
 
     String getAuthority();
 

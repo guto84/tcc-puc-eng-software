@@ -1,0 +1,19 @@
+version: "3.9"
+
+services:
+  pg-docker:
+    image: postgres:14-alpine
+    container_name: dev-postgresql
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_PASSWORD: 1234
+    ports:
+      - 5432:5432
+    volumes:
+      - ./.data/postgresql/data:/var/lib/postgresql/data
+    networks:
+      - dev-network
+
+networks:
+  dev-network:
+    driver: bridge
