@@ -27,7 +27,6 @@ public class ConfigurationItem {
 
     private String description;
 
-    @Column(nullable = false)
     private Double price;
 
     @ManyToOne
