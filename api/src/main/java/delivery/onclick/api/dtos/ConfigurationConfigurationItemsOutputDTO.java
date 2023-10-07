@@ -19,7 +19,6 @@ public class ConfigurationConfigurationItemsOutputDTO {
     }
 
     public ConfigurationConfigurationItemsOutputDTO(Configuration entity) {
-        System.out.println(entity);
         id = entity.getId();
         name = entity.getName();
         minimum = entity.getMinimum();

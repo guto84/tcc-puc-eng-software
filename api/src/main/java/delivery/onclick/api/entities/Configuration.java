@@ -123,9 +123,4 @@ public class Configuration {
         return true;
     }
 
-    @Override
-    public String toString() {
-        return "Configuration [id=" + id + ", name=" + name + ", minimum=" + minimum + ", maximum=" + maximum + "]";
-    }
-
 }

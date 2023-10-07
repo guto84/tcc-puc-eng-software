@@ -28,10 +28,11 @@ public class CompanyServiceImpl implements CompanyService {
 
     @Transactional
     public CompanyOutputDTO insert(CompanyInsertDTO dto) {
-        Company entity = new Company();
-        entity.setName(dto.getName());
-        entity.setUrl(dto.getUrl());
-        entity = repository.save(entity);
+        Company input = new Company();
+        input.setName(dto.getName());
+        input.setUrl(dto.getUrl());
+
+        Company entity = repository.save(input);
         return new CompanyOutputDTO(entity);
     }
 
@@ -54,8 +55,8 @@ public class CompanyServiceImpl implements CompanyService {
             Company entity = repository.getReferenceById(id);
             entity.setName(dto.getName());
             entity.setUrl(dto.getUrl());
-            entity = repository.save(entity);
-            return new CompanyOutputDTO(entity);
+            Company data = repository.save(entity);
+            return new CompanyOutputDTO(data);
         } catch (EntityNotFoundException e) {
             throw new ResourceNotFoundException();
         }

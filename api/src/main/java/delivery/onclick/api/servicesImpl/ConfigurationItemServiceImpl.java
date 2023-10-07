@@ -30,7 +30,6 @@ public class ConfigurationItemServiceImpl implements ConfigurationItemService {
 
     @Transactional
     public ConfigurationItemOutputDTO insert(ConfigurationItemInsertDTO dto) {
-        System.out.println(dto.getConfiguration().getId());
         Configuration configuration = configurationRepository.getReferenceById(dto.getConfiguration().getId());
         ConfigurationItem entity = new ConfigurationItem();
         entity.setName(dto.getName());
