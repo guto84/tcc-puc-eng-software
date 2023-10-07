@@ -41,7 +41,8 @@ export const CompanyFindAllSlice = createSlice({
         state.list = action.payload
         state.loading = false
       })
-      .addCase(companyFindAll.rejected, (state) => {
+      .addCase(companyFindAll.rejected, (state, action) => {
+        console.log(action)
         state.loading = false
         toastError('Erro ao buscar dados, tente novamente!')
       })
