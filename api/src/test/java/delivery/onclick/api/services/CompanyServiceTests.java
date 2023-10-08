@@ -52,7 +52,7 @@ public class CompanyServiceTests {
 
         Mockito.when(repository.findAll()).thenReturn(companies);
 
-        Mockito.when(repository.findById(this.existingId)).thenReturn(Optional.of(company));
+        Mockito.when(repository.findById(existingId)).thenReturn(Optional.of(company));
         Mockito.when(repository.findById(nonExistingId)).thenReturn(Optional.empty());
 
         Mockito.when(repository.getReferenceById(existingId)).thenReturn(company);
@@ -78,7 +78,7 @@ public class CompanyServiceTests {
         List<CompanyOutputDTO> list = service.findAll();
 
         Assertions.assertNotNull(list);
-        Assertions.assertEquals(this.countTotalCompanies, list.size());
+        Assertions.assertEquals(countTotalCompanies, list.size());
         Assertions.assertEquals(list.get(0).getName(), "Company One");
         Assertions.assertEquals(list.get(1).getName(), "Company Two");
         Assertions.assertEquals(list.get(2).getName(), "Company Three");
@@ -87,7 +87,7 @@ public class CompanyServiceTests {
 
     @Test
     public void findByIdShouldReturnCompanyDTOWhenIdExists() {
-        CompanyOutputDTO dto = service.findById(this.existingId);
+        CompanyOutputDTO dto = service.findById(existingId);
 
         Assertions.assertNotNull(dto.getId());
         Assertions.assertEquals(dto.getName(), "Company One");

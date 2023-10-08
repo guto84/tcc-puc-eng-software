@@ -26,7 +26,7 @@ public class CompanyRepositoryTests {
     void setUp() throws Exception {
         existingId = UUID.fromString("b239870c-5335-4421-8ecb-8df934645b45");;
         nonExistingId = UUID.fromString("d1e6f834-0710-49a7-be4d-6608e552515c");;
-        countTotalCompanies = 3;
+        countTotalCompanies = 4;
     }
 
     @Test
@@ -44,7 +44,7 @@ public class CompanyRepositoryTests {
     public void findAllShouldReturnListOfCompanies() {
         List<Company> entities = repository.findAll();
 
-        Assertions.assertEquals(this.countTotalCompanies, entities.size());
+        Assertions.assertEquals(countTotalCompanies, entities.size());
         Assertions.assertEquals("Lanchonete", entities.get(0).getName());
         Assertions.assertEquals("Pizzaria", entities.get(1).getName());
         Assertions.assertEquals("Restaurante", entities.get(2).getName());
@@ -52,21 +52,21 @@ public class CompanyRepositoryTests {
 
     @Test
     public void findByIdShouldReturnOptionalCompanyWhenIdExists() {
-        Optional<Company> entity = repository.findById(this.existingId);
+        Optional<Company> entity = repository.findById(existingId);
 
         Assertions.assertTrue(entity.isPresent());
     }
 
     @Test
     public void findByIdShouldReturnEmptyOptionalCompanyWhenIdDoesExists() {
-        Optional<Company> entity = repository.findById(this.nonExistingId);
+        Optional<Company> entity = repository.findById(nonExistingId);
 
         Assertions.assertTrue(entity.isEmpty());
     }
 
     @Test
     public void saveShouldUpdateCompanyWhenIdExists() {
-        Company entity = repository.getReferenceById(this.existingId);
+        Company entity = repository.getReferenceById(existingId);
         entity.setName("Lanchonete edit");
         entity.setUrl("lanchonete-edit");
 
@@ -78,9 +78,9 @@ public class CompanyRepositoryTests {
 
     @Test
     public void deleteShouldDeleteCompanyWhenIdExists() {
-        repository.deleteById(this.existingId);
+        repository.deleteById(existingId);
 
-        Optional<Company> result = repository.findById(this.existingId);
+        Optional<Company> result = repository.findById(existingId);
         Assertions.assertFalse(result.isPresent());
     }
 }

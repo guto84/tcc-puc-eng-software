@@ -5,6 +5,7 @@ INSERT INTO tb_role (id, authority) VALUES ('776f5adb-269a-410a-b8a7-ecb83d3ff06
 INSERT INTO tb_company (id, name, url) VALUES ('b239870c-5335-4421-8ecb-8df934645b45', 'Lanchonete', 'lanchonete');
 INSERT INTO tb_company (id, name, url) VALUES ('e6756246-8bad-4852-9ad7-6350a0152fbf', 'Pizzaria', 'pizzaria');
 INSERT INTO tb_company (id, name, url) VALUES ('ad7a78ec-0fdb-472b-a1ca-ca58374768d7', 'Restaurante', 'restaurante');
+INSERT INTO tb_company (id, name, url) VALUES ('0b6889bd-19f5-4f9a-ad3a-72081652fce6', 'Temakeria', 'temakeria');
 
 INSERT INTO tb_user (id, name, email, password, company_id) VALUES ('3459915b-965a-4109-ba87-3534b5582e07', 'Luke Skywalker', 'luke@starwars.com', '$2a$10$gMF0vmOu5zx/XDzMJTSZDO7yujc5tVSNZONUy4TJ.Pu17tTM96Cm6', 'b239870c-5335-4421-8ecb-8df934645b45');
 INSERT INTO tb_user (id, name, email, password, company_id) VALUES ('36577152-c33e-4d56-b4c3-0cca331f7bd4', 'Jimmy Page', 'page@lanchonete.com', '$2a$10$gMF0vmOu5zx/XDzMJTSZDO7yujc5tVSNZONUy4TJ.Pu17tTM96Cm6', 'b239870c-5335-4421-8ecb-8df934645b45');
